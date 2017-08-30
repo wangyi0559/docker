@@ -35,9 +35,9 @@ ENV ARCH x86_64
 # version for the base images, e.g., fabric-ccenv, fabric-baseos
 ENV BASEIMAGE_RELEASE 0.3.1
 # BASE_VERSION is required in core.yaml to build and run cc container
-ENV BASE_VERSION 1.0.1
-# version for the peer/orderer binaries, the community version tracks the hash value like 1.0.1-snapshot-51b7e85
-ENV PROJECT_VERSION 1.0.1
+ENV BASE_VERSION 1.0.0
+# version for the peer/orderer binaries, the community version tracks the hash value like 1.0.0-snapshot-51b7e85
+ENV PROJECT_VERSION 1.0.0
 # generic builder environment: builder: $(DOCKER_NS)/fabric-ccenv:$(ARCH)-$(PROJECT_VERSION)
 ENV DOCKER_NS hyperledger
 # for golang or car's baseos: $(BASE_DOCKER_NS)/fabric-baseos:$(ARCH)-$(BASEIMAGE_RELEASE)
@@ -81,7 +81,7 @@ RUN apt-get update \
         && apt-get install -y apt-utils python-dev \
         && apt-get install -y libsnappy-dev zlib1g-dev libbz2-dev libyaml-dev libltdl-dev libtool \
         && apt-get install -y python-pip \
-        && apt-get install -y vim tree jq unzip \
+        && apt-get install -y vim tree \
         && pip install --upgrade pip \
         && pip install behave nose docker-compose \
         && rm -rf /var/cache/apt
@@ -102,10 +102,8 @@ RUN go get github.com/golang/protobuf/protoc-gen-go \
 
 # Clone the Hyperledger Fabric code and cp sample config files
 RUN cd $GOPATH/src/github.com/hyperledger \
-#&& git clone --single-branch -b master http://gerrit.hyperledger.org/r/fabric \
-#&& git clone --single-branch -b master https://github.com/hyperledger/fabric.git \
-#&& cd fabric && git checkout v${PRJECT_VERSION} \
-        && wget https://github.com/hyperledger/fabric/archive/v${PROJECT_VERSION}.zip && unzip v${PROJECT_VERSION}.zip && rm v${PROJECT_VERSION}.zip && mv fabric-${PROJECT_VERSION} fabric \
+        && git clone --single-branch -b master http://gerrit.hyperledger.org/r/fabric \
+        && cd fabric && git checkout v1.0.0 \
         && cp $FABRIC_ROOT/devenv/limits.conf /etc/security/limits.conf \
         && cp -r $FABRIC_ROOT/sampleconfig/* $FABRIC_CFG_PATH/ \
         && cp $FABRIC_ROOT/examples/e2e_cli/configtx.yaml $FABRIC_CFG_PATH/ \
@@ -113,9 +111,9 @@ RUN cd $GOPATH/src/github.com/hyperledger \
 
 # install configtxgen, cryptogen and configtxlator
 RUN cd $FABRIC_ROOT/ \
-        && CGO_CFLAGS=" " go install -tags "nopkcs11" -ldflags "-X github.com/hyperledger/fabric/common/configtx/tool/configtxgen/metadata.Version=${PROJECT_VERSION}" github.com/hyperledger/fabric/common/configtx//tool/configtxgen \
-        && CGO_CFLAGS=" " go install -tags ""         -ldflags "-X github.com/hyperledger/fabric/common/tools/cryptogen/metadata.Version=${PROJECT_VERSION}" github.com/hyperledger/fabric/common/tools/cryptogen \
-        && CGO_CFLAGS=" " go install -tags ""         -ldflags "-X github.com/hyperledger/fabric/common/tools/configtxlator/metadata.Version=${PROJECT_VERSION}" github.com/hyperledger/fabric/common/tools/configtxlator
+        && CGO_CFLAGS=" " go install -tags "nopkcs11" -ldflags "-X github.com/hyperledger/fabric/common/configtx/tool/configtxgen/metadata.Version=${PROJECT_VERSION}" github.com/hyperledger/fabric/common/configtx/tool/configtxgen \
+        && CGO_CFLAGS=" " go install -tags "" -ldflags "-X github.com/hyperledger/fabric/common/tools/cryptogen/metadata.Version=${PROJECT_VERSION}" github.com/hyperledger/fabric/common/tools/cryptogen \
+        && CGO_CFLAGS=" " go install -tags "" -ldflags "-X github.com/hyperledger/fabric/common/tools/configtxlator/metadata.Version=${PROJECT_VERSION}" github.com/hyperledger/fabric/common/tools/configtxlator
 
 # Install block-listener
 RUN cd $FABRIC_ROOT/examples/events/block-listener \
@@ -136,10 +134,8 @@ ADD crypto-config $FABRIC_CFG_PATH/crypto-config
 
 # install fabric-ca
 RUN cd $GOPATH/src/github.com/hyperledger \
-#&& git clone --single-branch -b master https://github.com/hyperledger/fabric-ca \
-#&& git clone --single-branch -b master https://github.com/hyperledger/fabric-ca.git \
-#&& cd fabric-ca && git checkout v{PROJECT_VERSION} \
-    && wget https://github.com/hyperledger/fabric-ca/archive/v${PROJECT_VERSION}.zip && unzip v${PROJECT_VERSION}.zip && rm v${PROJECT_VERSION}.zip && mv fabric-ca-${PROJECT_VERSION} fabric-ca \
+    && git clone --single-branch -b master https://github.com/hyperledger/fabric-ca \
+    && cd fabric-ca && git checkout v1.0.0 \
     # This will install fabric-ca-server and fabric-ca-client into $GOPATH/bin/
     && go install -ldflags " -linkmode external -extldflags '-static -lpthread'" github.com/hyperledger/fabric-ca/cmd/... \
     # Copy example ca and key files
