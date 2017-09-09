@@ -7,4 +7,4 @@ ADD chainEva /app
 WORKDIR /app
 
 RUN npm install
-CMD ["node", "/app/app.js"]
+CMD ["node", "/app/chainEva/app.js"]
