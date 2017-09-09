@@ -5,12 +5,12 @@ EXPOSE 4000
 
 RUN mkdir -p /home/Service
 
-# Bundle app source
-ADD test /home/Service
+WORKDIR /home/Service
+COPY . /home/Service
 
 WORKDIR /home/Service/test
 RUN npm install
 
 
 RUN npm install
-CMD ["node", "app"]
+CMD ["node", "/home/Service/test/app.js"]
