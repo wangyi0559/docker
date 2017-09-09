@@ -4,10 +4,11 @@ LABEL maintainer "wangyi"
 EXPOSE 4000
 
 RUN mkdir -p /home/Service
-WORKDIR /home/Service
 
 # Bundle app source
 COPY chainEva /home/Service
+
+WORKDIR /home/Service/chainEva
 RUN npm install
 
 
