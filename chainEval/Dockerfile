@@ -1,4 +1,4 @@
-FROM node:6.9.11
+FROM node:6.11.2
 LABEL maintainer "wangyi"
 
 EXPOSE 4000
