@@ -13,4 +13,4 @@ RUN npm install
 
 
 RUN npm install
-CMD ["node", "/home/Service/chainEva/app.js"]
+CMD ["node", "/home/Service/test/app.js"]
