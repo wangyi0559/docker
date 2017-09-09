@@ -6,7 +6,7 @@ EXPOSE 4000
 RUN mkdir -p /home/Service
 
 # Bundle app source
-COPY test /home/Service
+ADD test /home/Service
 
 WORKDIR /home/Service/test
 RUN npm install
