@@ -1,0 +1,33 @@
+{
+   "host":"localhost",
+   "port":"4000",
+
+   "username":"Jim",
+   "orgname":"org1",
+   "peers":["localhost:7051","localhost:7056"],
+   "peer":"peer1",
+
+   "channelName":"mychannel",
+   "channelConfigPath":"../artifacts/channel/mychannel.tx",
+
+   "chaincodeName":"mycc",
+   "chaincodePath":"github.com/example_cc",
+   "chaincodeVersion":"v0",
+
+   "instantiateFunctionName":"init",
+   "instantiateArgs":["a","100","b","200"],
+
+   "invokeFunctionName":"move",
+   "invokeArgs":["a","b","10"],
+
+   "GOPATH":"../artifacts",
+   "keyValueStore":"/tmp/fabric-client-kvs",
+   "eventWaitTime":"30000",
+   "orderer":"grpcs://localhost:7050",
+   "users":[
+      {
+         "username":"admin",
+         "secret":"adminpw"
+      }
+   ]
+}

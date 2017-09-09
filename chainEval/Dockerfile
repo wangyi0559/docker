@@ -6,9 +6,9 @@ EXPOSE 4000
 RUN mkdir -p /home/Service
 
 # Bundle app source
-COPY chainEva /home/Service
+COPY test /home/Service
 
-WORKDIR /home/Service/chainEva
+WORKDIR /home/Service/test
 RUN npm install
 
 
