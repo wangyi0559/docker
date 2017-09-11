@@ -1,7 +1,7 @@
 FROM node:6.11.2
 LABEL maintainer "wangyi"
 
-EXPOSE 4000
+EXPOSE 8080
 
 RUN mkdir -p /home/Service
 

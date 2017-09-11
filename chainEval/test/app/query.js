@@ -57,6 +57,33 @@ var getTransactionByID = function(peer, trxnID, username, org) {
 		return 'Failed to query with error:' + err.stack ? err.stack : err;
 	});
 };
+var getInfo = function(peer, username, org) {
+	var target = buildTarget(peer, org);
+	var channel = helper.getChannelForOrg(org);
+
+	return helper.getRegisteredUsers(username, org).then((member) => {
+		return channel.queryInfo(target);
+	}, (err) => {
+		logger.info('Failed to get submitter "' + username + '"');
+		return 'Failed to get submitter "' + username + '". Error: ' + err.stack ?
+			err.stack : err;
+	}).then((response_payloads) => {
+		if (response_payloads) {
+			logger.debug(response_payloads);
+			return response_payloads;
+		} else {
+			logger.error('response_payloads is null');
+			return 'response_payloads is null';
+		}
+	}, (err) => {
+		logger.error('Failed to send query due to error: ' + err.stack ? err.stack :
+			err);
+		return 'Failed to send query due to error: ' + err.stack ? err.stack : err;
+	}).catch((err) => {
+		logger.error('Failed to query with error:' + err.stack ? err.stack : err);
+		return 'Failed to query with error:' + err.stack ? err.stack : err;
+	});
+};
 
 function buildTarget(peer, org) {
 	var target = null;
@@ -70,3 +97,4 @@ function buildTarget(peer, org) {
 
 exports.getBlockByNumber = getBlockByNumber;
 exports.getTransactionByID = getTransactionByID;
+exports.getInfo = getInfo;

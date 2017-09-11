@@ -46,7 +46,7 @@ function getErrorMessage(field) {
 ///////////////////////// REST ENDPOINTS START HERE ///////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 //开始启动，功能：1注册用户组织，2创建通道，3节点加入通道，4安装智能合约，5实例化智能合约
-//  127.0.0.1:4000/startTest
+//  127.0.0.1:8080/api/startTest
 app.get('/api/startTest', function(req, res) {
 	helper.getRegisteredUsers(config.username, config.orgname, true).then(function(response) {
 		if (response && typeof response !== 'string') {
@@ -66,13 +66,13 @@ app.get('/api/startTest', function(req, res) {
 												success: true
 											});
 										});
-									},3000);									
+									},8000);									
 								});
-							},3000);							
+							},5000);							
 						});						
-					},3000);
+					},5000);
 				});
-			},3000);			
+			},5000);			
 		} else {
 			res.json({
 				success: false
@@ -82,7 +82,7 @@ app.get('/api/startTest', function(req, res) {
 });
 
 // 发送请求，功能，执行一个transaction
-//  127.0.0.1:4000/api/invokeCC
+//  127.0.0.1:8080/api/invokeCC
 app.get('/api/invokeCC', function(req, res) {
 	invoke.invokeChaincode(config.peers, config.channelName, config.chaincodeName, config.invokeFunctionName, config.invokeArgs, config.username, config.orgname)
 	.then(function(message) {
@@ -92,8 +92,20 @@ app.get('/api/invokeCC', function(req, res) {
 	});
 });
 
+//  获得当前区块高度
+//  127.0.0.1:8080/api/getAll
+app.get('/api/getAll', function(req, res) {
+	query.getInfo(config.peer, config.username, config.orgname)
+	.then(function(response_payloads) {
+		res.send({
+			'success': true,
+			'height':response_payloads.height.toString(),
+		});
+	});
+});
+
 //  查询本节点指定id的block详细信息
-//  127.0.0.1:4000/api/getInfo?blockId=1
+//  127.0.0.1:8080/api/getInfo?blockId=1
 app.get('/api/getInfo', function(req, res) {
 	let blockId = req.query.blockId;
 	if (!blockId) {
@@ -115,10 +127,7 @@ app.get('/api/getInfo', function(req, res) {
 			var transactionsResult = [];
 			if (transactions != null) {
 				transactionsNum = transactions.length;
-
-
 				async.eachSeries(transactions, function (item, callback) {
-					console.log(item);
 					var tx_id = item.payload.header.channel_header.tx_id;
 					query.getTransactionByID(config.peer, tx_id, config.username, config.orgname)
 					.then(function(response_payloads) {
@@ -131,8 +140,6 @@ app.get('/api/getInfo', function(req, res) {
 						callback(null,response_payloads);
 					});
 				}, function (err) {
-					console.log("last");
-					console.log(transactionsResult);
 					res.send({
 						'success': true,
 						'number':block.header.number.toString(),
@@ -142,33 +149,6 @@ app.get('/api/getInfo', function(req, res) {
 						'transactions':transactionsResult
 					});
 				});
-
-
-
-				// transactions.forEach((item,index)=>{
-				// 	var tx_id = item.payload.header.channel_header.tx_id;
-				// 	query.getTransactionByID(config.peer, tx_id, config.username, config.orgname)
-				// 	.then(function(response_payloads) {
-				// 		var header = response_payloads['transactionEnvelope']['payload']['header']
-				// 		transactionsResult.push({
-				// 			'tx_id':header.channel_header.tx_id,
-				// 			'timestamp':header.channel_header.timestamp,
-				// 			'type':header.channel_header.type,
-				// 		});
-				// 		console.log("get");
-				// 		console.log(transactionsResult);
-				// 	});
-				// });
-				// console.log("last");
-				// console.log(transactionsResult);
-				// res.send({
-				// 	'success': true,
-				// 	'number':block.header.number.toString(),
-				// 	'previous_hash':block.header.previous_hash,
-				// 	'data_hash':block.header.data_hash,
-				// 	'transactions_num':transactionsNum,
-				// 	'transactions':transactionsResult
-				// });
 			}else{
 				res.send({
 					'success': true,
