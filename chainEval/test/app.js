@@ -3,7 +3,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var http = require('http');
 var app = express();
-var async = require('async');
 var cors = require('cors');
 var config = require('./config.json');
 var helper = require('./app/helper.js');
@@ -107,57 +106,8 @@ app.get('/api/getAll', function(req, res) {
 //  查询本节点指定id的block详细信息
 //  127.0.0.1:8080/api/getInfo?blockId=1
 app.get('/api/getInfo', function(req, res) {
-	let blockId = req.query.blockId;
-	if (!blockId) {
-		res.json({
-			success: false
-		});
-		return;
-	}
-	query.getBlockByNumber(config.peer, blockId, config.username, config.orgname)
+	query.getBlockByNumber(config.peer, req.query.blockId, config.username, config.orgname)
 		.then(function(block) {
-			if (block == null) {
-				res.json({
-					success: false
-				});
-				return;
-			}
-			var transactions = block.data.data;
-			var transactionsNum = 0;
-			var transactionsResult = [];
-			if (transactions != null) {
-				transactionsNum = transactions.length;
-				async.eachSeries(transactions, function (item, callback) {
-					var tx_id = item.payload.header.channel_header.tx_id;
-					query.getTransactionByID(config.peer, tx_id, config.username, config.orgname)
-					.then(function(response_payloads) {
-						var header = response_payloads['transactionEnvelope']['payload']['header']
-						transactionsResult.push({
-							'tx_id':header.channel_header.tx_id,
-							'timestamp':header.channel_header.timestamp,
-							'type':header.channel_header.type,
-						});
-						callback(null,response_payloads);
-					});
-				}, function (err) {
-					res.send({
-						'success': true,
-						'number':block.header.number.toString(),
-						'previous_hash':block.header.previous_hash,
-						'data_hash':block.header.data_hash,
-						'transactions_num':transactionsNum,
-						'transactions':transactionsResult
-					});
-				});
-			}else{
-				res.send({
-					'success': true,
-					'number':block.header.number.toString(),
-					'previous_hash':block.header.previous_hash,
-					'data_hash':block.header.data_hash,
-					'transactions_num':0,
-					'transactions':[]
-				});
-			}
+			res.json(block);
 		});
 });
