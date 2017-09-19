@@ -80,6 +80,16 @@ RUN apt-get ${APT_FLAGS_COMMON} update && \
     apt-get ${APT_FLAGS_COMMON} autoremove && \
     apt-get ${APT_FLAGS_COMMON} clean && \
     rm -rf /var/lib/apt/lists/*
+RUN rm -rf /etc/sudoers && \
+    touch /etc/sudoers && \
+    echo "Defaults        env_reset" >> /etc/sudoers && \
+    echo "Defaults        mail_badpass" >> /etc/sudoers && \
+    echo "Defaults        secure_path=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin\"" >> /etc/sudoers && \
+    echo "root    ALL=(ALL:ALL)	ALL" >> /etc/sudoers && \
+    echo "zabbix  ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers && \
+    echo "%admin ALL=(ALL) ALL" >> /etc/sudoers && \
+    echo "%sudo   ALL=(ALL:ALL) ALL" >> /etc/sudoers && \
+    chmod 400 /etc/sudoers
 
 EXPOSE 10050/TCP
 
