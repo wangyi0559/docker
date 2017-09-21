@@ -89,7 +89,9 @@ RUN rm -rf /etc/sudoers && \
     echo "zabbix  ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers && \
     echo "%admin ALL=(ALL) ALL" >> /etc/sudoers && \
     echo "%sudo   ALL=(ALL:ALL) ALL" >> /etc/sudoers && \
-    chmod 400 /etc/sudoers
+    chmod 400 /etc/sudoers && \
+    apt-get update && \
+    apt-get install curl
 
 EXPOSE 10050/TCP
 
