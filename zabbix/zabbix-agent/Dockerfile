@@ -91,7 +91,8 @@ RUN rm -rf /etc/sudoers && \
     echo "%sudo   ALL=(ALL:ALL) ALL" >> /etc/sudoers && \
     chmod 400 /etc/sudoers && \
     apt-get ${APT_FLAGS_COMMON} update && \
-    apt-get ${APT_FLAGS_COMMON} install curl
+    apt-get ${APT_FLAGS_COMMON} install curl \
+    apt-get ${APT_FLAGS_COMMON} install jq
 
 EXPOSE 10050/TCP
 
