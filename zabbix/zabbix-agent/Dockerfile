@@ -94,7 +94,9 @@ RUN rm -rf /etc/sudoers && \
     apt-get ${APT_FLAGS_COMMON} install curl \
             jq
 RUN echo 0 > /now && \
-    echo 0 > /height
+    echo 0 > /height &&\
+    echo "UserParameter=fabric.height,sudo /bin/bash /getAll.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
+    echo "UserParameter=fabric.block,sudo /bin/bash /getBlock.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf
 
 EXPOSE 10050/TCP
 
