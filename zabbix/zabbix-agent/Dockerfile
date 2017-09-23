@@ -93,6 +93,8 @@ RUN rm -rf /etc/sudoers && \
     apt-get ${APT_FLAGS_COMMON} update && \
     apt-get ${APT_FLAGS_COMMON} install curl \
             jq
+RUN echo 0 > /now && \
+    echo 0 > /height
 
 EXPOSE 10050/TCP
 
@@ -102,6 +104,8 @@ VOLUME ["/etc/zabbix/zabbix_agentd.d", "/var/lib/zabbix/enc", "/var/lib/zabbix/m
 
 ADD conf/etc/supervisor/ /etc/supervisor/
 ADD run_zabbix_component.sh /
+ADD getAll.sh /
+ADD getBlock.sh /
 
 ENTRYPOINT ["/bin/bash"]
 
