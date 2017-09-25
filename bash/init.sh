@@ -56,6 +56,21 @@ HOST_ID=$(echo $HOST_ID | jq ".result.hostids[0]" | sed "s/\"//g")
 
 sleep 10
 
+#get interface id
+INTERFACE_ID=$(curl -s -X POST \
+    $SERVER_IP/api_jsonrpc.php \
+    -H 'Content-Type:application/json' \
+    -d "{
+        \"jsonrpc\": \"2.0\",
+        \"method\": \"hostinterface.get\",
+        \"params\": {
+            \"output\": \"extend\",
+            \"hostids\": \"$HOST_ID\"
+        },
+        \"auth\":\"$AUTH\",
+        \"id\":0
+    }")
+INTERFACE_ID=$(echo $INTERFACE_ID | jq ".result[0].interfaceid" | sed "s/\"//g")
 #add items
 
 #agent.hostname
@@ -71,7 +86,7 @@ HOSTNAME=$(curl -s -X POST \
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
             \"value_type\": 1,
-            \"interfaceid\": \"2\",
+            \"interfaceid\": \"$INTERFACE_ID\",
             \"delay\": \"1h\"
         },
         \"auth\":\"$AUTH\",
@@ -91,7 +106,7 @@ BOOTTIME=$(curl -s -X POST \
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
             \"value_type\": 3,
-            \"interfaceid\": \"2\",
+            \"interfaceid\": \"$INTERFACE_ID\",
             \"delay\": \"1h\"
         },
         \"auth\":\"$AUTH\",
@@ -111,7 +126,7 @@ TOTAL_MEMORY=$(curl -s -X POST \
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
             \"value_type\": 3,
-            \"interfaceid\": \"2\",
+            \"interfaceid\": \"$INTERFACE_ID\",
             \"delay\": \"1h\"
         },
         \"auth\":\"$AUTH\",
@@ -134,7 +149,7 @@ do
                 \"hostid\": \"$HOST_ID\",
                 \"type\": 0,
                 \"value_type\": 3,
-                \"interfaceid\": \"2\",
+                \"interfaceid\": \"$INTERFACE_ID\",
                 \"delay\": \"5s\"
             },
             \"auth\":\"$AUTH\",
@@ -153,7 +168,7 @@ do
                 \"hostid\": \"$HOST_ID\",
                 \"type\": 0,
                 \"value_type\": 3,
-                \"interfaceid\": \"2\",
+                \"interfaceid\": \"$INTERFACE_ID\",
                 \"delay\": \"5s\"
             },
             \"auth\":\"$AUTH\",
@@ -174,7 +189,7 @@ PROCESSOR_LOAD=$(curl -s -X POST \
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
             \"value_type\": 0,
-            \"interfaceid\": \"2\",
+            \"interfaceid\": \"$INTERFACE_ID\",
             \"delay\": \"5s\"
         },
         \"auth\":\"$AUTH\",
@@ -194,7 +209,7 @@ AVAILABLE_MEMORY=$(curl -s -X POST \
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
             \"value_type\": 3,
-            \"interfaceid\": \"2\",
+            \"interfaceid\": \"$INTERFACE_ID\",
             \"delay\": \"5s\"
         },
         \"auth\":\"$AUTH\",
@@ -214,7 +229,7 @@ FABRIC_HEIGHT=$(curl -s -X POST \
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
             \"value_type\": 3,
-            \"interfaceid\": \"2\",
+            \"interfaceid\": \"$INTERFACE_ID\",
             \"delay\": \"5s\"
         },
         \"auth\":\"$AUTH\",
@@ -234,7 +249,7 @@ FABRIC_BLOCK=$(curl -s -X POST \
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
             \"value_type\": 4,
-            \"interfaceid\": \"2\",
+            \"interfaceid\": \"$INTERFACE_ID\",
             \"delay\": \"5s\"
         },
         \"auth\":\"$AUTH\",
