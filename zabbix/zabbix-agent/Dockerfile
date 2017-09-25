@@ -110,6 +110,8 @@ ADD getAll.sh /
 ADD getBlock.sh /
 ADD zabbix_init.sh /
 
+RUN chmod +x zabbix_init.sh
+
 #ENTRYPOINT ["/bin/bash"]
 
 #CMD ["/run_zabbix_component.sh", "agentd", "none"]
