@@ -44,39 +44,63 @@ function getErrorMessage(field) {
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////// REST ENDPOINTS START HERE ///////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-//开始启动，功能：1注册用户组织，2创建通道，3节点加入通道，4安装智能合约，5实例化智能合约
-//  127.0.0.1:8080/api/startTest
-app.get('/api/startTest', function(req, res) {
+// 1注册用户组织，每个必须
+//  127.0.0.1:8080/api/users
+app.get('/api/users', function(req, res) {
 	helper.getRegisteredUsers(config.username, config.orgname, true).then(function(response) {
 		if (response && typeof response !== 'string') {
-			var mytimeout=setTimeout(function(){
-				channels.createChannel(config.channelName, config.channelConfigPath, config.username, config.orgname)
-				.then(function(message) {
-					var mytimeout=setTimeout(function(){
-						join.joinChannel(config.channelName, config.peers, config.username, config.orgname)
-						.then(function(message) {
-							var mytimeout=setTimeout(function(){
-								install.installChaincode(config.peers, config.chaincodeName, config.chaincodePath, config.chaincodeVersion, config.username, config.orgname)
-								.then(function(message) {
-									var mytimeout=setTimeout(function(){
-										instantiate.instantiateChaincode(config.channelName, config.chaincodeName, config.chaincodeVersion, config.instantiateFunctionName, config.instantiateArgs, config.username, config.orgname)
-										.then(function(message) {
-											res.json({
-												success: true
-											});
-										});
-									},8000);									
-								});
-							},5000);							
-						});						
-					},5000);
-				});
-			},5000);			
+			res.json({
+				success: true
+			});		
 		} else {
 			res.json({
 				success: false
 			});
 		}
+	});
+});
+
+// 2创建通道，只需要一次
+//  127.0.0.1:8080/api/createChannel
+app.get('/api/createChannel', function(req, res) {
+	channels.createChannel(config.channelName, config.channelConfigPath, config.username, config.orgname)
+	.then(function(message) {
+		res.json({
+			success: true
+		});	
+	});
+});
+
+// 3节点加入通道，每个必须
+//  127.0.0.1:8080/api/joinchannel
+app.get('/api/joinchannel', function(req, res) {
+	join.joinChannel(config.channelName, config.peers, config.username, config.orgname)
+	.then(function(message) {
+		res.json({
+			success: true
+		});							
+	});	
+});
+
+// 4安装智能合约，每个必须
+//  127.0.0.1:8080/api/installChaincode
+app.get('/api/installChaincode', function(req, res) {
+	install.installChaincode(config.peers, config.chaincodeName, config.chaincodePath, config.chaincodeVersion, config.username, config.orgname)
+	.then(function(message) {
+		res.json({
+			success: true
+		});										
+	});
+});
+
+// 5实例化智能合约,看需求
+//  127.0.0.1:8080/api/instantiateChaincode
+app.get('/api/instantiateChaincode', function(req, res) {
+	instantiate.instantiateChaincode(config.channelName, config.chaincodeName, config.chaincodeVersion, config.instantiateFunctionName, config.instantiateArgs, config.username, config.orgname)
+	.then(function(message) {
+		res.json({
+			success: true
+		});
 	});
 });
 
