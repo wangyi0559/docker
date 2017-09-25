@@ -1,5 +1,5 @@
 FROM node:6.11.2
-LABEL maintainer "wangyi"
+LABEL maintainer "YI WANG <wangyi0559@gmail.com>"
 
 EXPOSE 8080
 

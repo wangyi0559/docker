@@ -2,7 +2,7 @@
 # Workdir is set to $GOPATH/src/github.com/hyperledger/fabric-ca
 
 FROM golang:1.8
-LABEL maintainer "WANG YI <wangyi0559@gmail.com>"
+LABEL maintainer "YI WANG <wangyi0559@gmail.com>"
 
 # ca-server and ca-client will check the following env in order, to get the home cfg path
 ENV FABRIC_CA_HOME /etc/hyperledger/fabric-ca-server

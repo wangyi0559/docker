@@ -5,7 +5,7 @@
 # Currently, the binary will look for config files at corresponding path.
 
 FROM golang:1.8
-LABEL maintainer "Baohua Yang <yangbaohua@gmail.com>"
+LABEL maintainer "YI WANG <wangyi0559@gmail.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
