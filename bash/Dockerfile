@@ -18,6 +18,4 @@ WORKDIR /
 
 ADD init.sh /
 
-ENTRYPOINT ["/bin/bash"]
-
-CMD ["/init.sh"]
+CMD ["/bin/bash"]
