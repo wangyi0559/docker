@@ -108,7 +108,8 @@ ADD conf/etc/supervisor/ /etc/supervisor/
 ADD run_zabbix_component.sh /
 ADD getAll.sh /
 ADD getBlock.sh /
+ADD zabbix_init.sh /
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash","/run_zabbix_component.sh", "agentd", "none","&&","zabbix_init.sh"]
 
-CMD ["/run_zabbix_component.sh", "agentd", "none"]
+CMD ["serverip", "agentip"]
