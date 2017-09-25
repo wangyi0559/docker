@@ -110,6 +110,6 @@ ADD getAll.sh /
 ADD getBlock.sh /
 ADD zabbix_init.sh /
 
-ENTRYPOINT ["/bin/bash","/run_zabbix_component.sh", "agentd", "none","&&","zabbix_init.sh"]
+ENTRYPOINT ["/bin/bash","/run_zabbix_component.sh", "agentd", "none","&&","/bin/bash","zabbix_init.sh"]
 
 CMD ["serverip", "agentip"]
