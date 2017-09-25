@@ -91,8 +91,8 @@ RUN rm -rf /etc/sudoers && \
     echo "%sudo   ALL=(ALL:ALL) ALL" >> /etc/sudoers && \
     chmod 400 /etc/sudoers && \
     apt-get ${APT_FLAGS_COMMON} update && \
-    apt-get ${APT_FLAGS_COMMON} install curl \
-            jq
+    apt-get ${APT_FLAGS_COMMON} install curl 
+    
 RUN echo 0 > /now && \
     echo 0 > /height &&\
     echo "UserParameter=fabric.height,sudo /bin/bash /getAll.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
@@ -108,10 +108,7 @@ ADD conf/etc/supervisor/ /etc/supervisor/
 ADD run_zabbix_component.sh /
 ADD getAll.sh /
 ADD getBlock.sh /
-ADD zabbix_init.sh /
 
-RUN chmod +x /zabbix_init.sh
+ENTRYPOINT ["/bin/bash"]
 
-#ENTRYPOINT ["/bin/bash"]
-
-#CMD ["/run_zabbix_component.sh", "agentd", "none"]
+CMD ["/run_zabbix_component.sh", "agentd", "none"]
