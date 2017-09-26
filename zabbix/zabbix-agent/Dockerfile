@@ -91,7 +91,7 @@ RUN rm -rf /etc/sudoers && \
     echo "%sudo   ALL=(ALL:ALL) ALL" >> /etc/sudoers && \
     chmod 400 /etc/sudoers && \
     apt-get ${APT_FLAGS_COMMON} update && \
-    apt-get ${APT_FLAGS_COMMON} install curl jq
+    apt-get ${APT_FLAGS_COMMON} install curl jq bc
     
 RUN echo 0 > /now && \
     echo 0 > /height &&\
