@@ -109,9 +109,12 @@ app.get('/api/instantiateChaincode', function(req, res) {
 app.get('/api/invokeCC', function(req, res) {
 	invoke.invokeChaincode(config.peers, config.channelName, config.chaincodeName, config.invokeFunctionName, config.invokeArgs, config.username, config.orgname)
 	.then(function(message) {
-		res.json({
-			success: true
-		});
+		// res.json({
+		// 	success: true
+		// });
+	});
+	res.json({
+		success: true
 	});
 });
 
