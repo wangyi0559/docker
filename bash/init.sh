@@ -87,7 +87,7 @@ HOSTNAME=$(curl -s -X POST \
             \"type\": 0,
             \"value_type\": 1,
             \"interfaceid\": \"$INTERFACE_ID\",
-            \"delay\": \"1h\"
+            \"delay\": \"5s\"
         },
         \"auth\":\"$AUTH\",
         \"id\":0
@@ -107,7 +107,7 @@ BOOTTIME=$(curl -s -X POST \
             \"type\": 0,
             \"value_type\": 3,
             \"interfaceid\": \"$INTERFACE_ID\",
-            \"delay\": \"1h\"
+            \"delay\": \"5s\"
         },
         \"auth\":\"$AUTH\",
         \"id\":0
@@ -127,7 +127,7 @@ TOTAL_MEMORY=$(curl -s -X POST \
             \"type\": 0,
             \"value_type\": 3,
             \"interfaceid\": \"$INTERFACE_ID\",
-            \"delay\": \"1h\"
+            \"delay\": \"5s\"
         },
         \"auth\":\"$AUTH\",
         \"id\":0
