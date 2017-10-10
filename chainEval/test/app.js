@@ -104,15 +104,18 @@ app.get('/api/instantiateChaincode', function(req, res) {
 	});
 });
 
-// 发送请求，功能，执行一个transaction
-//  127.0.0.1:8080/api/invokeCC
+// 发送请求，功能，10秒内执行num次transaction
+//  127.0.0.1:8080/api/invokeCC?num=1
 app.get('/api/invokeCC', function(req, res) {
-	invoke.invokeChaincode(config.peers, config.channelName, config.chaincodeName, config.invokeFunctionName, config.invokeArgs, config.username, config.orgname)
-	.then(function(message) {
-		// res.json({
-		// 	success: true
-		// });
-	});
+	let num = req.query.num;
+	var timeout = 10000/num;
+	for( var i = 0;i<num;i++){
+		setTimeout(function(){
+			invoke.invokeChaincode(config.peers, config.channelName, config.chaincodeName, config.invokeFunctionName, config.invokeArgs, config.username, config.orgname)
+			.then(function(message) {
+			});
+		},timeout*i);
+	}
 	res.json({
 		success: true
 	});
@@ -136,5 +139,13 @@ app.get('/api/getInfo', function(req, res) {
 	query.getBlockByNumber(config.peer, req.query.blockId, config.username, config.orgname)
 		.then(function(block) {
 			res.json(block);
+		});
+});
+
+//查询通道信息
+app.get('/api/getChannels', function(req, res) {
+	query.getInfo(config.peer, config.username, config.orgname).then(
+		function(message) {
+			res.send(message);
 		});
 });
