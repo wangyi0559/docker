@@ -236,6 +236,26 @@ FABRIC_HEIGHT=$(curl -s -X POST \
         \"id\":0
     }")
 
+#fabric channel info
+FABRIC_CHANNEL=$(curl -s -X POST \
+    $SERVER_IP/api_jsonrpc.php \
+    -H 'Content-Type:application/json' \
+    -d "{
+        \"jsonrpc\": \"2.0\",
+        \"method\": \"item.create\",
+        \"params\": {
+            \"name\": \"fabric channel info\",
+            \"key_\": \"fabric.channel\",
+            \"hostid\": \"$HOST_ID\",
+            \"type\": 0,
+            \"value_type\": 1,
+            \"interfaceid\": \"$INTERFACE_ID\",
+            \"delay\": \"5s\"
+        },
+        \"auth\":\"$AUTH\",
+        \"id\":0
+    }")
+
 #fabric block info
 FABRIC_BLOCK=$(curl -s -X POST \
     $SERVER_IP/api_jsonrpc.php \

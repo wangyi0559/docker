@@ -96,6 +96,7 @@ RUN rm -rf /etc/sudoers && \
 RUN echo 0 > /now && \
     echo 0 > /height &&\
     echo "UserParameter=fabric.height,sudo /bin/bash /getAll.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
+    echo "UserParameter=fabric.channel,sudo /bin/bash /getChannel.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=fabric.block,sudo /bin/bash /getBlock.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf
 
 EXPOSE 10050/TCP
@@ -107,6 +108,7 @@ VOLUME ["/etc/zabbix/zabbix_agentd.d", "/var/lib/zabbix/enc", "/var/lib/zabbix/m
 ADD conf/etc/supervisor/ /etc/supervisor/
 ADD run_zabbix_component.sh /
 ADD getAll.sh /
+ADD getChannel.sh /
 ADD getBlock.sh /
 
 ENTRYPOINT ["/bin/bash"]
