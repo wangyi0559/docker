@@ -109,12 +109,15 @@ app.get('/api/instantiateChaincode', function(req, res) {
 app.get('/api/invokeCC', function(req, res) {
 	let num = req.query.num;
 	var timeout = 10000/num;
+	console.log(num);
+	console.log(timeout);
 	for( var i = 0;i<num;i++){
 		setTimeout(function(){
 			invoke.invokeChaincode(config.peers, config.channelName, config.chaincodeName, config.invokeFunctionName, config.invokeArgs, config.username, config.orgname)
 			.then(function(message) {
 			});
 		},timeout*i);
+		console.log(timeout*i);
 	}
 	res.json({
 		success: true
