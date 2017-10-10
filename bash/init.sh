@@ -248,7 +248,7 @@ FABRIC_CHANNEL=$(curl -s -X POST \
             \"key_\": \"fabric.channel\",
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
-            \"value_type\": 1,
+            \"value_type\": 4,
             \"interfaceid\": \"$INTERFACE_ID\",
             \"delay\": \"5s\"
         },

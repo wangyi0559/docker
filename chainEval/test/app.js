@@ -144,8 +144,8 @@ app.get('/api/getInfo', function(req, res) {
 
 //查询通道信息
 app.get('/api/getChannels', function(req, res) {
-	query.getInfo(config.peer, config.username, config.orgname).then(
-		function(message) {
+	query.getChannels(config.peer, config.username, config.orgname)
+		.then(function(message) {
 			res.send(message);
 		});
 });

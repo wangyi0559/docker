@@ -85,6 +85,40 @@ var getInfo = function(peer, username, org) {
 	});
 };
 
+var getChannels = function(peer, username, org) {
+	var target = buildTarget(peer, org);
+	var channel = helper.getChannelForOrg(org);
+	var client = helper.getClientForOrg(org);
+
+	return helper.getRegisteredUsers(username, org).then((member) => {
+		return client.queryChannels(target);
+	}, (err) => {
+		logger.info('Failed to get submitter "' + username + '"');
+		return 'Failed to get submitter "' + username + '". Error: ' + err.stack ?
+			err.stack : err;
+	}).then((response) => {
+		if (response) {
+			logger.debug('<<< channels >>>');
+			var channelNames = [];
+			for (let i = 0; i < response.channels.length; i++) {
+				channelNames.push('channel id: ' + response.channels[i].channel_id);
+			}
+			logger.debug(channelNames);
+			return response;
+		} else {
+			logger.error('response_payloads is null');
+			return 'response_payloads is null';
+		}
+	}, (err) => {
+		logger.error('Failed to send query due to error: ' + err.stack ? err.stack :
+			err);
+		return 'Failed to send query due to error: ' + err.stack ? err.stack : err;
+	}).catch((err) => {
+		logger.error('Failed to query with error:' + err.stack ? err.stack : err);
+		return 'Failed to query with error:' + err.stack ? err.stack : err;
+	});
+};
+
 function buildTarget(peer, org) {
 	var target = null;
 	if (typeof peer !== 'undefined') {
@@ -98,3 +132,4 @@ function buildTarget(peer, org) {
 exports.getBlockByNumber = getBlockByNumber;
 exports.getTransactionByID = getTransactionByID;
 exports.getInfo = getInfo;
+exports.getChannels = getChannels;
