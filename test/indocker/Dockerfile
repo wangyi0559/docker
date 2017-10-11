@@ -24,9 +24,8 @@ RUN add-apt-repository \
         trusty \
         stable"
 
-RUN apt-get ${APT_FLAGS_COMMON} update && \
-    apt-cache madison docker-ce && \
-    apt-get ${APT_FLAGS_COMMON} install \
+RUN apt-get ${APT_FLAGS_COMMON} update --fix-missing && \
+    apt-get autoremove && && apt-get clean && apt-get ${APT_FLAGS_COMMON} install -f\
         docker-ce=17.09.0~ce-0~ubuntu
 
 WORKDIR /
