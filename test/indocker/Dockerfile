@@ -28,7 +28,7 @@ RUN sudo add-apt-repository \
 RUN sudo apt-get ${APT_FLAGS_COMMON} update && \
     sudo apt-cache madison docker-ce && \
     sudo apt-get ${APT_FLAGS_COMMON} install \
-        docker-ce
+        docker-ce=17.09.0~ce-0~ubuntu
 
 WORKDIR /
 
