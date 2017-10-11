@@ -18,7 +18,7 @@ RUN addgroup --system --quiet zabbix && \
     mkdir -p /var/lib/zabbix/modules && \
     chown --quiet -R zabbix:root /var/lib/zabbix && \
     apt-get ${APT_FLAGS_COMMON} update && \
-    apt-get ${APT_FLAGS_COMMON} install \
+    apt-get ${APT_FLAGS_PERSISTANT} install \
         supervisor \
         libpcre3 \
         libssl1.0.0 1>/dev/null && \
