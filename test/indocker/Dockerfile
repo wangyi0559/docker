@@ -20,13 +20,13 @@ RUN DISTRIB_CODENAME=$(/bin/bash -c 'source /etc/lsb-release && echo $DISTRIB_CO
 
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 
 
-RUN add-apt-repository \
+RUN sudo add-apt-repository \
         "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         trusty \
         stable"
 
-RUN apt-get ${APT_FLAGS_COMMON} update && \
-    apt-get ${APT_FLAGS_COMMON} install \
+RUN sudo apt-get ${APT_FLAGS_COMMON} update && \
+    sudo apt-get ${APT_FLAGS_COMMON} install \
         docker-ce
 
 WORKDIR /
