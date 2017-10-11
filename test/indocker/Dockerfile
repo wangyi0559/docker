@@ -21,7 +21,7 @@ RUN DISTRIB_CODENAME=$(/bin/bash -c 'source /etc/lsb-release && echo $DISTRIB_CO
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 
 
 RUN add-apt-repository \
-        "deb [arch=armhf] https://download.docker.com/linux/ubuntu \
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         trusty \
         stable"
 
