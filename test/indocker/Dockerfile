@@ -13,10 +13,6 @@ RUN DISTRIB_CODENAME=$(/bin/bash -c 'source /etc/lsb-release && echo $DISTRIB_CO
     apt-get ${APT_FLAGS_COMMON} install \
         curl \
 		jq \
-        iptables \
-        libapparmor1 \
-        libltdl7 \
-        libsystemd-journal0 
 
 WORKDIR /
 
