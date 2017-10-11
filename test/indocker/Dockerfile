@@ -20,8 +20,6 @@ RUN DISTRIB_CODENAME=$(/bin/bash -c 'source /etc/lsb-release && echo $DISTRIB_CO
 
 WORKDIR /
 
-RUN curl -fL -o docker.deb "https://download.docker.com/linux/ubuntu/dists/trusty/pool/stable/amd64/docker-ce_17.09.0~ce-0~ubuntu_amd64.deb" && \
-    sudo dpkg -i docker.deb && \
-    rm docker.deb
+RUN curl -sSL https://get.daocloud.io/docker | sh
 
 CMD ["/bin/bash"]
