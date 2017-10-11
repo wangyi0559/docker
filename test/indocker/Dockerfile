@@ -18,11 +18,12 @@ RUN DISTRIB_CODENAME=$(/bin/bash -c 'source /etc/lsb-release && echo $DISTRIB_CO
         ca-certificates \
         software-properties-common
 
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
-    add-apt-repository \
-   "deb [arch=armhf] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 
+
+RUN add-apt-repository \
+        "deb [arch=armhf] https://download.docker.com/linux/ubuntu \
+        trusty \
+        stable"
 
 RUN apt-get ${APT_FLAGS_COMMON} update && \
     apt-get ${APT_FLAGS_COMMON} install \
