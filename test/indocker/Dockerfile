@@ -2,8 +2,7 @@ FROM ubuntu:trusty
 LABEL maintainer "YI WANG <wangyi0559@gmail.com>"
 
 ARG APT_FLAGS_COMMON="-qq -y"
-ARG APT_FLAGS_PERSISTANT="${APT_FLAGS_COMMON} --no-install-recommends"
-ARG APT_FLAGS_DEV="${APT_FLAGS_COMMON} --no-install-recommends"
+
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive TERM=xterm
 
 RUN DISTRIB_CODENAME=$(/bin/bash -c 'source /etc/lsb-release && echo $DISTRIB_CODENAME') && \
@@ -18,16 +17,16 @@ RUN DISTRIB_CODENAME=$(/bin/bash -c 'source /etc/lsb-release && echo $DISTRIB_CO
         ca-certificates \
         software-properties-common
 
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - 
 
-RUN sudo add-apt-repository \
+RUN add-apt-repository \
         "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         trusty \
         stable"
 
-RUN sudo apt-get ${APT_FLAGS_COMMON} update && \
-    sudo apt-cache madison docker-ce && \
-    sudo apt-get ${APT_FLAGS_COMMON} install \
+RUN apt-get ${APT_FLAGS_COMMON} update && \
+    apt-cache madison docker-ce && \
+    apt-get ${APT_FLAGS_COMMON} install \
         docker-ce=17.09.0~ce-0~ubuntu
 
 WORKDIR /
