@@ -11,13 +11,24 @@ RUN DISTRIB_CODENAME=$(/bin/bash -c 'source /etc/lsb-release && echo $DISTRIB_CO
     echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d && \
     echo "deb http://us.archive.ubuntu.com/ubuntu/ $DISTRIB_CODENAME multiverse" >> /etc/apt/sources.list && \
     apt-get ${APT_FLAGS_COMMON} update && \
-    apt-get ${APT_FLAGS_COMMON} install curl \
-		jq
+    apt-get ${APT_FLAGS_COMMON} install \
+        curl \
+		jq \
+        apt-transport-https \
+        ca-certificates \
+        software-properties-common
+
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
+    add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+RUN apt-get ${APT_FLAGS_COMMON} update && \
+    apt-get ${APT_FLAGS_COMMON} install \
+        docker-ce
 
 WORKDIR /
 
-RUN curl -fsSL get.docker.com -o get-docker.sh && \
-    /bin/bash get-docker.sh && \
-    rm -rf get-docker.sh
 
 CMD ["/bin/bash"]
