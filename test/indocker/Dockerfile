@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu:16.04
 LABEL maintainer "YI WANG <wangyi0559@gmail.com>"
 
 ARG APT_FLAGS_COMMON="-qq -y"
