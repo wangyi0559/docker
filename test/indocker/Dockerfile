@@ -12,23 +12,12 @@ RUN DISTRIB_CODENAME=$(/bin/bash -c 'source /etc/lsb-release && echo $DISTRIB_CO
     apt-get ${APT_FLAGS_COMMON} update && \
     apt-get ${APT_FLAGS_COMMON} install \
         curl \
-		jq \
-        apt-transport-https \
-        ca-certificates \
-        software-properties-common
-
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - 
-
-RUN add-apt-repository \
-        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-        trusty \
-        stable"
-
-RUN apt-get ${APT_FLAGS_COMMON} update --fix-missing && \
-    apt-get autoremove && apt-get clean && apt-get ${APT_FLAGS_COMMON} install -f\
-        docker-ce=17.09.0~ce-0~ubuntu
+		jq 
 
 WORKDIR /
 
+RUN curl -fL -o docker.deb "https://download.docker.com/linux/ubuntu/dists/trusty/pool/stable/amd64/docker-ce_17.09.0~ce-0~ubuntu_amd64.deb" && \
+    dpkg -i docker.deb && \
+    rm docker.deb
 
 CMD ["/bin/bash"]
