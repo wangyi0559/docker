@@ -1,16 +1,11 @@
-FROM ubuntu:trusty
+FROM ubuntu:16.04
 LABEL maintainer "YI WANG <wangyi0559@gmail.com>"
 
 ARG APT_FLAGS_COMMON="-qq -y"
 ARG APT_FLAGS_PERSISTANT="${APT_FLAGS_COMMON} --no-install-recommends"
 ARG APT_FLAGS_DEV="${APT_FLAGS_COMMON} --no-install-recommends"
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive TERM=xterm
 
-RUN DISTRIB_CODENAME=$(/bin/bash -c 'source /etc/lsb-release && echo $DISTRIB_CODENAME') && \
-    locale-gen $LC_ALL && \
-    echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d && \
-    echo "deb http://us.archive.ubuntu.com/ubuntu/ $DISTRIB_CODENAME multiverse" >> /etc/apt/sources.list && \
-    addgroup --system --quiet zabbix && \
+RUN addgroup --system --quiet zabbix && \
     adduser --quiet \
             --system --disabled-login \
             --ingroup zabbix \
@@ -23,10 +18,10 @@ RUN DISTRIB_CODENAME=$(/bin/bash -c 'source /etc/lsb-release && echo $DISTRIB_CO
     mkdir -p /var/lib/zabbix/modules && \
     chown --quiet -R zabbix:root /var/lib/zabbix && \
     apt-get ${APT_FLAGS_COMMON} update && \
-    apt-get ${APT_FLAGS_PERSISTANT} install \
-            supervisor \
-            libpcre3 \
-            libssl1.0.0 1>/dev/null && \
+    apt-get ${APT_FLAGS_COMMON} install \
+        supervisor \
+        libpcre3 \
+        libssl1.0.0 1>/dev/null && \
     apt-get ${APT_FLAGS_COMMON} autoremove && \
     apt-get ${APT_FLAGS_COMMON} clean && \
     rm -rf /var/lib/apt/lists/*
@@ -80,6 +75,7 @@ RUN apt-get ${APT_FLAGS_COMMON} update && \
     apt-get ${APT_FLAGS_COMMON} autoremove && \
     apt-get ${APT_FLAGS_COMMON} clean && \
     rm -rf /var/lib/apt/lists/*
+
 RUN rm -rf /etc/sudoers && \
     touch /etc/sudoers && \
     echo "Defaults        env_reset" >> /etc/sudoers && \
@@ -92,12 +88,14 @@ RUN rm -rf /etc/sudoers && \
     chmod 400 /etc/sudoers && \
     apt-get ${APT_FLAGS_COMMON} update && \
     apt-get ${APT_FLAGS_COMMON} install curl jq bc
-    
+
 RUN echo 0 > /now && \
     echo 0 > /height &&\
     echo "UserParameter=fabric.height,sudo /bin/bash /getAll.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=fabric.channel,sudo /bin/bash /getChannel.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=fabric.block,sudo /bin/bash /getBlock.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf
+
+RUN curl -sSL https://get.daocloud.io/docker | sh
 
 EXPOSE 10050/TCP
 
