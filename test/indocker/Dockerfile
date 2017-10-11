@@ -6,7 +6,7 @@ ARG APT_FLAGS_COMMON="-qq -y"
 RUN apt-get ${APT_FLAGS_COMMON} update && \
     apt-get ${APT_FLAGS_COMMON} install \
         curl \
-		jq 
+		jq
 
 WORKDIR /
 
