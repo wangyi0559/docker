@@ -176,7 +176,7 @@ do
         }")
 done
 
-#Processor load (5 min average per core)
+#Processor load (1 min average per core)
 PROCESSOR_LOAD=$(curl -s -X POST \
     $SERVER_IP/api_jsonrpc.php \
     -H 'Content-Type:application/json' \
@@ -184,8 +184,8 @@ PROCESSOR_LOAD=$(curl -s -X POST \
         \"jsonrpc\": \"2.0\",
         \"method\": \"item.create\",
         \"params\": {
-            \"name\": \"Processor load (5 min average per core)\",
-            \"key_\": \"system.cpu.load[percpu,avg5]\",
+            \"name\": \"Processor load (1 min average per core)\",
+            \"key_\": \"system.cpu.load[percpu,avg1]\",
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
             \"value_type\": 0,
@@ -216,16 +216,16 @@ AVAILABLE_MEMORY=$(curl -s -X POST \
         \"id\":0
     }")
 
-#fabric height info
-FABRIC_HEIGHT=$(curl -s -X POST \
+#chain height info
+CHAIN_HEIGHT=$(curl -s -X POST \
     $SERVER_IP/api_jsonrpc.php \
     -H 'Content-Type:application/json' \
     -d "{
         \"jsonrpc\": \"2.0\",
         \"method\": \"item.create\",
         \"params\": {
-            \"name\": \"fabric height info\",
-            \"key_\": \"fabric.height\",
+            \"name\": \"chain height info\",
+            \"key_\": \"chain.height\",
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
             \"value_type\": 3,
@@ -236,19 +236,19 @@ FABRIC_HEIGHT=$(curl -s -X POST \
         \"id\":0
     }")
 
-#fabric channel info
-FABRIC_CHANNEL=$(curl -s -X POST \
+#TaskStatus
+TASK_STATUS=$(curl -s -X POST \
     $SERVER_IP/api_jsonrpc.php \
     -H 'Content-Type:application/json' \
     -d "{
         \"jsonrpc\": \"2.0\",
         \"method\": \"item.create\",
         \"params\": {
-            \"name\": \"fabric channel info\",
-            \"key_\": \"fabric.channel\",
+            \"name\": \"TaskStatus\",
+            \"key_\": \"chain.TaskStatus\",
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
-            \"value_type\": 4,
+            \"value_type\": 3,
             \"interfaceid\": \"$INTERFACE_ID\",
             \"delay\": \"5s\"
         },
@@ -256,16 +256,16 @@ FABRIC_CHANNEL=$(curl -s -X POST \
         \"id\":0
     }")
 
-#fabric block info
-FABRIC_BLOCK=$(curl -s -X POST \
+#chain block info
+CHAIN_BLOCK=$(curl -s -X POST \
     $SERVER_IP/api_jsonrpc.php \
     -H 'Content-Type:application/json' \
     -d "{
         \"jsonrpc\": \"2.0\",
         \"method\": \"item.create\",
         \"params\": {
-            \"name\": \"fabric block info\",
-            \"key_\": \"fabric.block\",
+            \"name\": \"chain block info\",
+            \"key_\": \"chain.block\",
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
             \"value_type\": 4,
