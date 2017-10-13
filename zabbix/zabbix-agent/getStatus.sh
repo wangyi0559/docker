@@ -11,7 +11,7 @@ function getStatus(){
     then
         echo $STATUS
     else
-        STATUS="4"
+        STATUS="5"
         echo $STATUS > /status
         echo $STATUS
     fi
