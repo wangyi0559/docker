@@ -35,6 +35,7 @@ function startZabbixAgent(){
     -v /chain:/chain \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /var/lib/docker:/var/lib/docker \
+    -v /etc/hosts:/etc/hosts \
     -d registry.cn-hangzhou.aliyuncs.com/wangyi0559/zabbix-agent:latest
 }
 function checkEvalInit(){
