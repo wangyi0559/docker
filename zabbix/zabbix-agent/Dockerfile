@@ -95,7 +95,11 @@ RUN echo 0 > /now && \
     echo 0 > /status && \
     echo "UserParameter=chain.height,sudo /bin/bash /getHeight.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.TaskStatus,sudo /bin/bash /getStatus.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
-    echo "UserParameter=chain.block,sudo /bin/bash /getBlock.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf
+    echo "UserParameter=chain.block,sudo /bin/bash /getBlock.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
+    echo -e '#!/bin/bash\necho 000' > /create.sh && \
+    echo -e '#!/bin/bash\necho 000' > /init.sh && \
+    echo -e '#!/bin/bash\necho 000' > /sendTransaction.sh && \
+    echo -e '#!/bin/bash\necho 000' > /changeStatus.sh
 
 RUN curl -sSL https://get.daocloud.io/docker | sh
 
