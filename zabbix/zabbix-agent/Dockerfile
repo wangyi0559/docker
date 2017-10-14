@@ -99,7 +99,8 @@ RUN echo 0 > /now && \
     echo -e '#!/bin/bash\necho 000' > /create.sh && \
     echo -e '#!/bin/bash\necho 000' > /init.sh && \
     echo -e '#!/bin/bash\necho 000' > /sendTransaction.sh && \
-    echo -e '#!/bin/bash\necho $1 > /status\necho $1' > /changeStatus.sh
+    echo -e '#!/bin/bash\necho $1 > /status\necho $1' > /changeStatus.sh && \
+    mkdir /test
 
 RUN curl -sSL https://get.daocloud.io/docker | sh
 
