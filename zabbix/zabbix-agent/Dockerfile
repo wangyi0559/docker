@@ -104,7 +104,7 @@ RUN echo 0 > /now && \
     echo 'echo 000' >> /sendTransaction.sh && \
     echo '#!/bin/bash' > /changeStatus.sh && \
     echo 'echo $1 > /status' >> /changeStatus.sh && \
-    echo 'echo $1' >> /changeStatus.sh && 
+    echo 'echo $1' >> /changeStatus.sh 
 
 RUN curl -sSL https://get.daocloud.io/docker | sh
 
