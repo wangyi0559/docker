@@ -96,15 +96,15 @@ RUN echo 0 > /now && \
     echo "UserParameter=chain.height,sudo /bin/bash /getHeight.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.TaskStatus,sudo /bin/bash /getStatus.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.block,sudo /bin/bash /getBlock.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
-    echo '#!/bin/bash' > /create.sh && \
-    echo 'echo 000' >> /create.sh && \
-    echo '#!/bin/bash' > /init.sh && \
-    echo 'echo 000' >> /init.sh && \
-    echo '#!/bin/bash' > /sendTransaction.sh && \
-    echo 'echo 000' >> /sendTransaction.sh && \
-    echo '#!/bin/bash' > /changeStatus.sh && \
-    echo 'echo $1 > /status' >> /changeStatus.sh && \
-    echo 'echo $1' >> /changeStatus.sh 
+    echo '#!/bin/bash' > /chain/create.sh && \
+    echo 'echo 000' >> /chain/create.sh && \
+    echo '#!/bin/bash' > /chain/init.sh && \
+    echo 'echo 000' >> /chain/init.sh && \
+    echo '#!/bin/bash' > /chain/sendTransaction.sh && \
+    echo 'echo 000' >> /chain/sendTransaction.sh && \
+    echo '#!/bin/bash' > /chain/changeStatus.sh && \
+    echo 'echo $1 > /status' >> /chain/changeStatus.sh && \
+    echo 'echo $1' >> /chain/changeStatus.sh 
 
 RUN curl -sSL https://get.daocloud.io/docker | sh
 
