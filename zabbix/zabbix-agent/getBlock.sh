@@ -9,7 +9,7 @@ function getBlock(){
         echo $NEW > /now
         echo $RESULT
     else
-        echo 'do not have new block'
+       sleep 10s
     fi
 }
 getBlock
