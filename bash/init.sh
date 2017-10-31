@@ -230,7 +230,7 @@ CHAIN_HEIGHT=$(curl -s -X POST \
             \"type\": 0,
             \"value_type\": 3,
             \"interfaceid\": \"$INTERFACE_ID\",
-            \"delay\": \"5s\"
+            \"delay\": \"1s\"
         },
         \"auth\":\"$AUTH\",
         \"id\":0
