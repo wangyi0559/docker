@@ -123,7 +123,7 @@ ADD getHeight.sh /
 ADD getStatus.sh /
 ADD getBlock.sh /
 ADD getNet.sh /
-ADD startNet.sh /chain/
+ADD startNet.sh /
 
 ENTRYPOINT ["/bin/bash"]
 

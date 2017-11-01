@@ -84,7 +84,7 @@ STARTNETSCRIPT=$(curl -s -X POST \
         \"method\": \"script.create\",
         \"params\": {
             \"name\": \"netstart\",
-            \"command\": \"sudo /bin/bash /chain/startNet.sh\",
+            \"command\": \"sudo /bin/bash /startNet.sh\",
             \"host_access\": 3,
             \"execute_on\": 0
         },
