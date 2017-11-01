@@ -4,8 +4,7 @@ LABEL maintainer "YI WANG <wangyi0559@gmail.com>"
 ARG APT_FLAGS_COMMON="-qq -y"
 ARG APT_FLAGS_PERSISTANT="${APT_FLAGS_COMMON} --no-install-recommends"
 ARG APT_FLAGS_DEV="${APT_FLAGS_COMMON} --no-install-recommends"
-RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    echo 'Asia/Shanghai' >/etc/timezone 
+RUN echo "Asia/Shanghai" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 RUN addgroup --system --quiet zabbix && \
     adduser --quiet \
             --system --disabled-login \
