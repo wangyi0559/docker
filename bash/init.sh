@@ -6,7 +6,7 @@ SERVER_IP=$1
 AGENT_IP=$2
 #eth_id
 ETH_ID=$(ifconfig -s | awk '{print $1}' | grep "^e")
-echo $ETH_ID
+#echo $ETH_ID
 # login
 AUTH=$(curl -s -X POST \
     $SERVER_IP/api_jsonrpc.php \
@@ -266,6 +266,26 @@ CHAIN_BLOCK=$(curl -s -X POST \
         \"params\": {
             \"name\": \"chain block info\",
             \"key_\": \"chain.block\",
+            \"hostid\": \"$HOST_ID\",
+            \"type\": 0,
+            \"value_type\": 4,
+            \"interfaceid\": \"$INTERFACE_ID\",
+            \"delay\": \"5s\"
+        },
+        \"auth\":\"$AUTH\",
+        \"id\":0
+    }")
+
+#chain net info
+CHAIN_NET=$(curl -s -X POST \
+    $SERVER_IP/api_jsonrpc.php \
+    -H 'Content-Type:application/json' \
+    -d "{
+        \"jsonrpc\": \"2.0\",
+        \"method\": \"item.create\",
+        \"params\": {
+            \"name\": \"chain net info\",
+            \"key_\": \"chain.net\",
             \"hostid\": \"$HOST_ID\",
             \"type\": 0,
             \"value_type\": 4,

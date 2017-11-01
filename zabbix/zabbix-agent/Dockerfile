@@ -88,14 +88,16 @@ RUN rm -rf /etc/sudoers && \
     echo "%sudo   ALL=(ALL:ALL) ALL" >> /etc/sudoers && \
     chmod 400 /etc/sudoers && \
     apt-get ${APT_FLAGS_COMMON} update && \
-    apt-get ${APT_FLAGS_COMMON} install curl jq bc git wget
+    apt-get ${APT_FLAGS_COMMON} install curl jq bc git wget tcpdump
 
 RUN echo 0 > /now && \
     echo -2 > /height && \
     echo 0 > /status && \
+    touch /netdat && \
     echo "UserParameter=chain.height,sudo /bin/bash /getHeight.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.TaskStatus,sudo /bin/bash /getStatus.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.block,sudo /bin/bash /getBlock.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
+    echo "UserParameter=chain.net,sudo /bin/bash /getNet.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     mkdir /chain && \
     echo '#!/bin/bash' > /chain/create.sh && \
     echo 'echo 000' >> /chain/create.sh && \
@@ -120,7 +122,9 @@ ADD run_zabbix_component.sh /
 ADD getHeight.sh /
 ADD getStatus.sh /
 ADD getBlock.sh /
+ADD getNet.sh /
+ADD startNet.sh /
 
 ENTRYPOINT ["/bin/bash"]
 
-CMD ["/run_zabbix_component.sh", "agentd", "none"]
+CMD ["/startNet.sh","&&", "/bin/bash","/run_zabbix_component.sh", "agentd", "none"]
