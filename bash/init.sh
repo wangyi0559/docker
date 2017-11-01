@@ -83,7 +83,7 @@ STARTNETSCRIPT=$(curl -s -X POST \
         \"jsonrpc\": \"2.0\",
         \"method\": \"script.create\",
         \"params\": {
-            \"name\": \"netstart\",
+            \"name\": \"`date`\",
             \"command\": \"sudo /bin/bash /startNet.sh\",
             \"host_access\": 3,
             \"execute_on\": 0
@@ -91,7 +91,8 @@ STARTNETSCRIPT=$(curl -s -X POST \
         \"auth\":\"$AUTH\",
         \"id\":0
     }")
-STARTNETSCRIPT=$(echo $STARTNETSCRIPT | jq ".result.scriptids" | sed "s/\"//g")
+STARTNETSCRIPT=$(echo $STARTNETSCRIPT | jq ".result.scriptids[0]" | sed "s/\"//g")
+sleep 10s
 #add items
 STARTNET=$(curl -s -X POST \
     $SERVER_IP/api_jsonrpc.php \
