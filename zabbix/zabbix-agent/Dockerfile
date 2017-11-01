@@ -125,6 +125,6 @@ ADD getBlock.sh /
 ADD getNet.sh /
 ADD startNet.sh /
 
-#ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash"]
 
-CMD ["/bin/bash","/startNet.sh","&&", "/bin/bash","/run_zabbix_component.sh", "agentd", "none"]
+CMD ["/run_zabbix_component.sh", "agentd", "none"]
