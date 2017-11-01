@@ -4,7 +4,7 @@ LABEL maintainer "YI WANG <wangyi0559@gmail.com>"
 ARG APT_FLAGS_COMMON="-qq -y"
 ARG APT_FLAGS_PERSISTANT="${APT_FLAGS_COMMON} --no-install-recommends"
 ARG APT_FLAGS_DEV="${APT_FLAGS_COMMON} --no-install-recommends"
-RUN apk add --no-cache tzdata && echo "Asia/Shanghai" > /etc/timezone && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
+ 
 RUN addgroup --system --quiet zabbix && \
     adduser --quiet \
             --system --disabled-login \
@@ -88,8 +88,8 @@ RUN rm -rf /etc/sudoers && \
     echo "%sudo   ALL=(ALL:ALL) ALL" >> /etc/sudoers && \
     chmod 400 /etc/sudoers && \
     apt-get ${APT_FLAGS_COMMON} update && \
-    apt-get ${APT_FLAGS_COMMON} install curl jq bc git wget tcpdump net-tools
-
+    apt-get ${APT_FLAGS_COMMON} install curl jq bc git wget tcpdump net-tools tzdata 
+RUN echo "Asia/Shanghai" > /etc/timezone && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
 RUN echo 0 > /now && \
     echo -2 > /height && \
     echo 0 > /status && \
