@@ -92,7 +92,7 @@ STARTNETSCRIPT=$(curl -s -X POST \
         \"id\":0
     }")
 STARTNETSCRIPT=$(echo $STARTNETSCRIPT | jq ".result.scriptids[0]" | sed "s/\"//g")
-sleep 10s
+sleep 15s
 #add items
 STARTNET=$(curl -s -X POST \
     $SERVER_IP/api_jsonrpc.php \
