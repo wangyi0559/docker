@@ -73,6 +73,40 @@ INTERFACE_ID=$(curl -s -X POST \
 INTERFACE_ID=$(echo $INTERFACE_ID | jq ".result[0].interfaceid" | sed "s/\"//g")
 #add items
 
+
+
+#STARTNETSCRIPT
+STARTNETSCRIPT=$(curl -s -X POST \
+    $SERVER_IP/api_jsonrpc.php \
+    -H 'Content-Type:application/json' \
+    -d "{
+        \"jsonrpc\": \"2.0\",
+        \"method\": \"script.create\",
+        \"params\": {
+            \"name\": \"netstart\",
+            \"command\": \"sudo /bin/bash /chain/startNet.sh\",
+            \"host_access\": 3,
+            \"execute_on\": 0
+        },
+        \"auth\":\"$AUTH\",
+        \"id\":0
+    }")
+STARTNETSCRIPT=$(echo $STARTNETSCRIPT | jq ".result.scriptids" | sed "s/\"//g")
+#add items
+STARTNET=$(curl -s -X POST \
+    $SERVER_IP/api_jsonrpc.php \
+    -H 'Content-Type:application/json' \
+    -d "{
+        \"jsonrpc\": \"2.0\",
+        \"method\": \"script.execute\",
+        \"params\": {
+            \"scriptid\": \"$STARTNETSCRIPT\",
+            \"hostid\": \"$HOST_ID\"
+        },
+        \"auth\":\"$AUTH\",
+        \"id\":0
+    }")
+sleep 10s
 #agent.hostname
 HOSTNAME=$(curl -s -X POST \
     $SERVER_IP/api_jsonrpc.php \
