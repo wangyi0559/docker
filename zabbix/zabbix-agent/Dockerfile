@@ -93,7 +93,7 @@ RUN echo "Asia/Shanghai" > /etc/timezone && ln -sf /usr/share/zoneinfo/Asia/Shan
 RUN echo 0 > /now && \
     echo -2 > /height && \
     echo 0 > /status && \
-    touch /netdat && \
+    touch /chain/netdat && \
     echo "UserParameter=chain.height,sudo /bin/bash /getHeight.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.TaskStatus,sudo /bin/bash /getStatus.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.block,sudo /bin/bash /getBlock.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
@@ -123,7 +123,6 @@ ADD getHeight.sh /
 ADD getStatus.sh /
 ADD getBlock.sh /
 ADD getNet.sh /
-ADD startNet.sh /
 
 ENTRYPOINT ["/bin/bash"]
 
