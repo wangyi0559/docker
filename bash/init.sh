@@ -73,40 +73,6 @@ INTERFACE_ID=$(curl -s -X POST \
 INTERFACE_ID=$(echo $INTERFACE_ID | jq ".result[0].interfaceid" | sed "s/\"//g")
 #add items
 
-
-
-#STARTNETSCRIPT
-STARTNETSCRIPT=$(curl -s -X POST \
-    $SERVER_IP/api_jsonrpc.php \
-    -H 'Content-Type:application/json' \
-    -d "{
-        \"jsonrpc\": \"2.0\",
-        \"method\": \"script.create\",
-        \"params\": {
-            \"name\": \"`date`\",
-            \"command\": \"sudo /bin/bash /startNet.sh\",
-            \"host_access\": 3,
-            \"execute_on\": 0
-        },
-        \"auth\":\"$AUTH\",
-        \"id\":0
-    }")
-STARTNETSCRIPT=$(echo $STARTNETSCRIPT | jq ".result.scriptids[0]" | sed "s/\"//g")
-sleep 15s
-#add items
-STARTNET=$(curl -s -X POST \
-    $SERVER_IP/api_jsonrpc.php \
-    -H 'Content-Type:application/json' \
-    -d "{
-        \"jsonrpc\": \"2.0\",
-        \"method\": \"script.execute\",
-        \"params\": {
-            \"scriptid\": \"$STARTNETSCRIPT\",
-            \"hostid\": \"$HOST_ID\"
-        },
-        \"auth\":\"$AUTH\",
-        \"id\":0
-    }")
 sleep 10s
 #agent.hostname
 HOSTNAME=$(curl -s -X POST \
@@ -326,6 +292,26 @@ CHAIN_NET=$(curl -s -X POST \
             \"value_type\": 4,
             \"interfaceid\": \"$INTERFACE_ID\",
             \"delay\": \"5s\"
+        },
+        \"auth\":\"$AUTH\",
+        \"id\":0
+    }")
+
+#chain logs info
+CHAIN_LOGS=$(curl -s -X POST \
+    $SERVER_IP/api_jsonrpc.php \
+    -H 'Content-Type:application/json' \
+    -d "{
+        \"jsonrpc\": \"2.0\",
+        \"method\": \"item.create\",
+        \"params\": {
+            \"name\": \"chain logs info\",
+            \"key_\": \"chain.logs\",
+            \"hostid\": \"$HOST_ID\",
+            \"type\": 0,
+            \"value_type\": 4,
+            \"interfaceid\": \"$INTERFACE_ID\",
+            \"delay\": \"10s\"
         },
         \"auth\":\"$AUTH\",
         \"id\":0

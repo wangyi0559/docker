@@ -97,6 +97,7 @@ RUN echo 0 > /now && \
     echo "UserParameter=chain.TaskStatus,sudo /bin/bash /getStatus.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.block,sudo /bin/bash /getBlock.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.net,sudo /bin/bash /getNet.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
+    echo "UserParameter=chain.logs,sudo /bin/bash /getLogs.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     mkdir /chain && \
     echo '#!/bin/bash' > /chain/create.sh && \
     echo 'echo 000' >> /chain/create.sh && \
@@ -122,6 +123,7 @@ ADD getHeight.sh /
 ADD getStatus.sh /
 ADD getBlock.sh /
 ADD getNet.sh /
+ADD getLogs.sh /
 
 ENTRYPOINT ["/bin/bash"]
 
