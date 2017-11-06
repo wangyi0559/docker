@@ -104,11 +104,11 @@ app.get('/api/instantiateChaincode', function(req, res) {
 	});
 });
 
-// 发送请求，功能，10秒内执行num次transaction
+// 发送请求，功能，1秒内执行num次transaction
 //  127.0.0.1:8080/api/invokeCC?num=1
 app.get('/api/invokeCC', function(req, res) {
 	let num = req.query.num;
-	var timeout = 10000/num;
+	var timeout = 1000/num;
 	console.log(num);
 	console.log(timeout);
 	for( var i = 0;i<num;i++){
