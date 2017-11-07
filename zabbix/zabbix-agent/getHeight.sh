@@ -8,7 +8,7 @@ function getHeight(){
         echo $HEIGHT > /height
         echo $HEIGHT
     else
-        echo "0"
+        sleep 6s
     fi
 }
 getHeight

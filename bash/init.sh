@@ -316,3 +316,22 @@ CHAIN_LOGS=$(curl -s -X POST \
         \"auth\":\"$AUTH\",
         \"id\":0
     }")
+#chain disk info
+CHAIN_DISK=$(curl -s -X POST \
+    $SERVER_IP/api_jsonrpc.php \
+    -H 'Content-Type:application/json' \
+    -d "{
+        \"jsonrpc\": \"2.0\",
+        \"method\": \"item.create\",
+        \"params\": {
+            \"name\": \"chain disk info\",
+            \"key_\": \"chain.disk\",
+            \"hostid\": \"$HOST_ID\",
+            \"type\": 0,
+            \"value_type\": 4,
+            \"interfaceid\": \"$INTERFACE_ID\",
+            \"delay\": \"5s\"
+        },
+        \"auth\":\"$AUTH\",
+        \"id\":0
+    }")
