@@ -33,8 +33,14 @@ function getLogs(){
     grep -E '(Starting new Broadcast handler|Closing Broadcast stream)' /chain/dockerlogs$PEER_INDEX > /chain/BroadcastTime
     grep -E '(Adding payload locally,|\[chaincode\] Execute -> .* Exit)' /chain/dockerlogs$PEER_INDEX > /chain/TransactionTimebac
     grep -A 1 'Adding payload locally,' /chain/TransactionTimebac > /chain/TransactionTime
-    cat /chain/BroadcastTime
-    cat /chain/TransactionTime
+    A=$(cat /chain/BroadcastTime)
+    B=$(cat /chain/TransactionTime)
+    if [ -z "$A" -o "$A" = " " ] && [ -z "$B" -o "$B" = " " ]; then
+        sleep 10s
+    else
+        echo $A
+        echo $B
+    fi
 }
 getLogs
 

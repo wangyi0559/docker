@@ -8,9 +8,12 @@ function getNet(){
     awk '{a[$1" "$2]+=$3;}END{for (i in a) print i,a[i];}' /chain/netdat2>/chain/netdat3
     sed -i -e "/$AGENT_IP/!d" /chain/netdat3
     sed -i "s/$AGENT_IP//g" /chain/netdat3
-    cat /chain/netdat3
+    A=$(cat /chain/netdat3)
+    if [ -z "$A" -o "$A" = " " ]; then
+        rm /chain/netdat1
+        sleep 10s
+    fi
+    echo $A
     rm /chain/netdat1
-    rm /chain/netdat2
-    rm /chain/netdat3
 }
 getNet
