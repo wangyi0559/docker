@@ -29,7 +29,7 @@ function getLogs(){
         *)   echo 'error' >/dev/null 2>&1 
         ;;
     esac
-    docker logs --tail 2000 $CONTAINER_NAME > /chain/dockerlogs$PEER_INDEX 2>&1
+    docker logs --tail 8192 $CONTAINER_NAME > /chain/dockerlogs$PEER_INDEX 2>&1
     grep -E '(Starting new Broadcast handler|Closing Broadcast stream)' /chain/dockerlogs$PEER_INDEX > /chain/BroadcastTime
     grep -E '(Adding payload locally,|\[chaincode\] Execute -> .* Exit)' /chain/dockerlogs$PEER_INDEX > /chain/TransactionTimebac
     grep -A 1 'Adding payload locally,' /chain/TransactionTimebac > /chain/TransactionTime
