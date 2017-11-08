@@ -13,7 +13,7 @@ function getNet(){
         rm /chain/netdat1
         sleep 10s
     fi
-    echo $A
+    cat /chain/netdat3
     rm /chain/netdat1
 }
 getNet
