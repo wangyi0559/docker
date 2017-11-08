@@ -38,8 +38,8 @@ function getLogs(){
     if [ -z "$A" -o "$A" = " " ] && [ -z "$B" -o "$B" = " " ]; then
         sleep 10s
     else
-        echo $A
-        echo $B
+        cat /chain/BroadcastTime
+        cat /chain/TransactionTime
     fi
 }
 getLogs
