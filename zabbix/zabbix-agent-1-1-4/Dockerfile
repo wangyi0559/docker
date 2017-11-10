@@ -98,7 +98,7 @@ RUN echo 0 > /now && \
     echo "UserParameter=chain.block,sudo /bin/bash /getBlock.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.net,sudo /bin/bash /getNet.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.logs,sudo /bin/bash /getLogs.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
-    echo "UserParameter=chain.disk,sudo /bin/bash /getDisk.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && 
+    echo "UserParameter=chain.disk,sudo /bin/bash /getDisk.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf
 
 RUN curl -sSL https://get.daocloud.io/docker | sh
 
