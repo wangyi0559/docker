@@ -108,9 +108,6 @@ app.get('/api/instantiateChaincode', function(req, res) {
 //  127.0.0.1:8080/api/invokeCC?num=1
 app.get('/api/invokeCC', function(req, res) {
 	let num = req.query.num;
-	var timeout = 1000/num;
-
-
 	let a = (index,num)=>{
 		invoke.invokeChaincode(config.peers, config.channelName, config.chaincodeName, config.invokeFunctionName, config.invokeArgs, config.username, config.orgname).then(function(message) {
 			if(index < num){
