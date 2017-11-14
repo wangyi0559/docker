@@ -109,19 +109,20 @@ app.get('/api/instantiateChaincode', function(req, res) {
 app.get('/api/invokeCC', function(req, res) {
 	let num = req.query.num;
 	var timeout = 1000/num;
-	console.log(num);
-	console.log(timeout);
-	for( var i = 0;i<num;i++){
-		setTimeout(function(){
-			invoke.invokeChaincode(config.peers, config.channelName, config.chaincodeName, config.invokeFunctionName, config.invokeArgs, config.username, config.orgname)
-			.then(function(message) {
-			});
-		},timeout*i);
-		console.log(timeout*i);
+
+
+	let a = (index,num)=>{
+		invoke.invokeChaincode(config.peers, config.channelName, config.chaincodeName, config.invokeFunctionName, config.invokeArgs, config.username, config.orgname).then(function(message) {
+			if(index < num){
+				a(index+1,num);
+			}else{
+				res.json({
+					success: true
+				});
+			}
+		});
 	}
-	res.json({
-		success: true
-	});
+	a(1,num);
 });
 
 //  获得当前区块高度
