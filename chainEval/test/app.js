@@ -106,22 +106,35 @@ app.get('/api/instantiateChaincode', function(req, res) {
 
 // 发送请求，功能，1秒内执行num次transaction
 //  127.0.0.1:8080/api/invokeCC?num=1
+// app.get('/api/invokeCC', function(req, res) {
+// 	let num = req.query.num;
+// 	let a = (index,num)=>{
+// 		invoke.invokeChaincode(config.peers, config.channelName, config.chaincodeName, config.invokeFunctionName, config.invokeArgs, config.username, config.orgname).then(function(message) {
+// 			if(index < num){
+// 				a(index+1,num);
+// 			}else{
+// 				res.json({
+// 					success: true
+// 				});
+// 			}
+// 		});
+// 	}
+// 	a(1,num);
+// });
 app.get('/api/invokeCC', function(req, res) {
 	let num = req.query.num;
-	let a = (index,num)=>{
-		invoke.invokeChaincode(config.peers, config.channelName, config.chaincodeName, config.invokeFunctionName, config.invokeArgs, config.username, config.orgname).then(function(message) {
-			if(index < num){
-				a(index+1,num);
-			}else{
-				res.json({
-					success: true
-				});
-			}
-		});
+	var timeout = 1000/num;
+	for( var i = 0;i<num;i++){
+		setTimeout(function(){
+			invoke.invokeChaincode(config.peers, config.channelName, config.chaincodeName, config.invokeFunctionName, config.invokeArgs, config.username, config.orgname)
+			.then(function(message) {
+			});
+		},timeout*i);
 	}
-	a(1,num);
+	res.json({
+		success: true
+	});
 });
-
 //  获得当前区块高度
 //  127.0.0.1:8080/api/getAll
 app.get('/api/getAll', function(req, res) {
