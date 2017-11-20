@@ -28,4 +28,4 @@ case $PEER_INDEX in
         ;;
     esac
 
-docker system df -v | grep $CONTAINER_NAME | awk -F'  +' '{print $5}'
+docker system df -v | grep "$CONTAINER_NAME" | awk -F'  +' '{print $5}'

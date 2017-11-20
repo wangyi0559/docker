@@ -330,7 +330,7 @@ CHAIN_DISK=$(curl -s -X POST \
             \"type\": 0,
             \"value_type\": 4,
             \"interfaceid\": \"$INTERFACE_ID\",
-            \"delay\": \"5s\"
+            \"delay\": \"10s\"
         },
         \"auth\":\"$AUTH\",
         \"id\":0
