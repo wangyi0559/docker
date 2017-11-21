@@ -26,4 +26,5 @@ case $PEER_INDEX in
         ;;
     esac
 
-docker system df -v | grep "$CONTAINER_NAME" | awk -F'  +' '{print $5}'
+CONTAINER_ID=$(docker ps -a | grep "$CONTAINER_NAME" | awk '{print $1}')
+docker ps -f id=$CONTAINER_ID -s | sed '1d' |  awk -F'  +' '{print $8}'
