@@ -1,0 +1,91 @@
+﻿.form-plaintxt{
+	height: 30px;
+	padding: 5px 10px;
+	font-size: 16px;
+	line-height: 1.5;
+}
+.form-plaintxt-bg{
+	height: 35px;
+	padding: 5px 10px;
+	font-size: 20px;
+	line-height: 1.5;
+}
+.sgroup-addon{
+	background-color: #f7f7f9;
+}
+.color-red{
+	color: #ff0000;
+}
+.font-weight-100{
+	font-weight:100;
+}
+.new-table-padding{
+	padding: 0 10px 0 0;
+}
+table .c{
+	text-align: center;
+}
+th,td{
+	text-align: center;
+}
+.span-decoration{
+	color:#0000FF;
+	margin-left: -10px;
+}
+.authority-selection{
+	overflow:scroll; /*任何时候都强制显示滚动条*/
+	overflow:auto; /*需要的时候会出现滚动条*/
+	overflow-x:auto; /*控制X方向的滚动条*/
+	overflow-y:auto; /*控制Y方向的滚动条*/
+	height:378px;
+	width:230px;
+	/*border:1px solid;*/
+	padding :5px;
+    }
+    .new-body{
+    	max-width:80%;
+    	margin-left:10%;
+    }
+    .none-dot{
+    	 list-style-type:none;
+    }
+    .hide-out-char{
+		width:16em;  /*em表示一个字符的宽度；*/
+		display:block;
+		white-space:nowrap; 
+		overflow:hidden; 
+		text-overflow:ellipsis;
+    }
+    .side-li{
+		float:left;list-style: none;
+		margin:0 30px 0 30px;
+    }
+    .publicity-padding{
+        padding-left: 20px;
+    }
+    .body-gray{
+    	background-color: #ddd;
+    }
+    .col-md-1-8 {
+    width: 12.5%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    text-align: center;
+    }
+    .admi-divi-active{
+    background-color:red; 
+    }
+    .tip-offs-box{
+    	min-height: 600px;
+    }
+    .line-label-padding{
+    	padding-left: 30px;
+    }
+    .innerbox-padding{
+    	padding-left: 30px;
+    	padding-right: 30px;
+    }
+    .p-start{
+    	padding-left: 2em;
+    }

@@ -1,0 +1,9 @@
+功能	智能合约	函数	输入参数	备注
+创建资金账户	MoneyAndCoin	CreateCustomerAccount	用户ID| 用户身份| 人民币余额| 欧冶币余额	
+用户充值欧冶币	MoneyAndCoin	B2CPayCoin	欧冶ID| 用户ID | 充值金额	
+A给B转账	MoneyAndCoin	C2CPayCoin	用户A ID|用户B ID| 转账金额	
+				
+仓单创建数字资产	DigitalAsset	CreateDigitalAssets	仓单ID|拥有者ID|类型|捆包ID|特性|数量|重量|总价	
+仓单交易				
+仓单所有者改变	DigitalAsset	ChangeOwner	仓单ID|新拥有者ID	
+转账				

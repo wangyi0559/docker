@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>我的钱包</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../dist/css/AdminLTE.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect. -->
+  <link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.useso.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="../dist/css/mycss.css">
+  <script src="../dist/js/myjs.js"></script>
+  <script src="../js/jquery-3.2.1.min.js"></script>
+
+  <script>
+    var name = getCookie("name");
+    var role = getCookie("role");
+    function getCookie(objName) {//获取指定名称的cookie的值   
+      var arrStr = document.cookie.split("; ");
+      for (var i = 0; i < arrStr.length; i++) {
+        var temp = arrStr[i].split("=");
+        if (temp[0] == objName)
+          return unescape(temp[1]);
+      }
+    }
+  </script>
+</head>
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+
+<body class="hold-transition skin-blue sidebar-mini">
+  <!-- modal-->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+        </div>
+        <div class="modal-body">
+          <!--下面是密码输入框-->
+          <div class="input-group col-md-offset-3 col-md-6 col-sm-12">
+            <span class="input-group-addon" id="basic-addon1">@</span>
+            <input id="userPhone" type="password" maxlength="11" class="form-control" placeholder="原密码……" aria-describedby="basic-addon1">
+          </div>
+          </br>
+          <div class="input-group col-md-offset-3 col-md-6 col-sm-12">
+            <span class="input-group-addon" id="basic-addon1">@</span>
+            <input id="userPassword" type="password" class="form-control" placeholder="新密码……" aria-describedby="basic-addon1">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">修改</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal1 -->
+  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">充值金额为：</h4>
+        </div>
+        <div class="modal-body">
+          <!--充值框-->
+          <div class="input-group col-md-offset-3 col-md-6 col-sm-12">
+            <span class="input-group-addon" id="basic-addon1">O</span>
+            <input id="newamount" type="text" maxlength="16" class="form-control" placeholder="请输入充值金额……" aria-describedby="basic-addon1">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="chongzhi()" data-dismiss="modal">确认充值</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- modal12 -->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">兑换金额为：</h4>
+          </div>
+          <div class="modal-body">
+            <!--兑换框-->
+            <div class="input-group col-md-offset-3 col-md-6 col-sm-12">
+              <span class="input-group-addon" id="basic-addon1">O</span>
+              <input id="duihuanamount" type="text" maxlength="16" class="form-control" placeholder="请输入兑换金额……" aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="duihuan()" data-dismiss="modal">确认兑换</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- Modal4 -->
+  <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">转账金额为：</h4>
+        </div>
+        <div class="modal-body">
+          <!--转账框-->
+          <div class="input-group col-md-offset-3 col-md-6 col-sm-12">
+            <span class="input-group-addon" id="basic-addon1">@</span>
+            <input id="payee" type="text" maxlength="11" class="form-control" placeholder="请输入对方账户……" aria-describedby="basic-addon1">
+            <input id="transferamount" type="text" maxlength="11" class="form-control" placeholder="请输入转账金额……" aria-describedby="basic-addon1">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="transferMoney()" data-dismiss="modal">确认转账</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/Modal4-->
+  <!-- Modal5 -->
+  <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" align="center">
+        <img id="qrcode" alt="二维码"></img>
+
+      </div>
+    </div>
+  </div>
+  <!--/Modal5-->
+
+
+
+  <div class="wrapper">
+
+    <!-- Main Header -->
+    <header class="main-header">
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          首页
+          <small>>用户中心>我的钱包</small>
+        </h1>
+      </section>
+
+      <!-- Main content -->
+      <section class="content container-fluid">
+
+        <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+        <!--coded By Bobo 2017/7/13-->
+        <div class="box">
+          <div class="box-body">
+
+            <div>
+              <!-- Nav tabs -->
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active">
+                  <table class="table table-hover">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="panel panel-info">
+                            <div class="panel-heading">
+                              <h3 class="panel-title">欧冶币余额</h3>
+                            </div>
+                            <div class="panel-body">
+                              <span id="balance" class="lead"></span>
+                            </div>
+                            <div class="panel-heading">
+                              <button data-toggle="modal" data-target="#myModal3" class="btn btn-primary">充值</button>
+                              <button data-toggle="modal" data-target="#myModal2" class="btn btn-primary">兑换</button>
+                              <button data-toggle="modal" data-target="#myModal4" class="btn btn-primary">转账</button>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div class="panel panel-success">
+                            <div class="panel-heading">
+                              <h3 class="panel-title">人民币余额
+                              </h3>
+                            </div>
+                            <div class="panel-body">
+                              <span id="rmbBalance" class="lead"></span>
+
+                            </div>
+                            <div class="panel-heading">
+                              <button data-toggle="modal" data-target="#myModal3" class="btn btn-primary">充值</button>
+                              <button class="btn btn-primary"> 兑换</button>
+                              <button data-toggle="modal" data-target="#myModal4" class="btn btn-primary">转账</button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <div class="panel panel-warning">
+                            <div class="panel-heading">
+                              <h3 class="panel-title">密码管理</h3>
+                            </div>
+                            <div class="panel-body">
+                              <button id="changepasswordbtn" data-toggle="modal" data-target="#myModal" class="btn btn-primary">修改密码</button>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div class="panel panel-danger">
+                            <div class="panel-heading">
+                              <h3 class="panel-title">二维码转账</h3>
+                            </div>
+                            <div class="panel-body">
+                              <button id="qrcodebutton" data-toggle="modal" data-target="#myModal5" class="btn btn-primary">收款二维码</button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- /.box-body -->
+        </div>
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+    </footer>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Create the tabs -->
+      <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <!-- Settings tab content -->
+        <div class="tab-pane" id="control-sidebar-settings-tab">
+          <form method="post">
+            <h3 class="control-sidebar-heading">General Settings</h3>
+
+            <div class="form-group">
+              <label class="control-sidebar-subheading">
+              Report panel usage
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+              <p>
+                Some information about this general settings option
+              </p>
+            </div>
+            <!-- /.form-group -->
+          </form>
+        </div>
+        <!-- /.tab-pane -->
+      </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+  immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- REQUIRED JS SCRIPTS -->
+
+  <!-- jQuery 3 -->
+  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../dist/js/adminlte.js"></script>
+  <script src="../dist/js/myjs.js"></script>
+  <!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
+  <script type="text/javascript">
+    /*
+   *加载header、sider和footer
+  */
+    $(".main-header").load("mainheader.html");
+    $(".main-sidebar").load("mainsider.html");
+    $(".main-footer").load("../mainfooter.html");
+    $(document).ready(function(){
+        $(".target").removeClass("highlight");
+      $(".usercenter").addClass("highlight");
+   });
+/*
+*
+*/
+  </script>
+  <script>
+    var name = getCookie("name");
+    $("#username").html(name);
+    var test_host = window.location.host;
+    var url = "http://qr.liantu.com/api.php?text=http://" + test_host + "/user/qrcode.html?payee=" + name;
+    document.getElementById("qrcode").src = url;
+
+    var role = getCookie("role");
+    function getCookie(objName) {//获取指定名称的cookie的值   
+      var arrStr = document.cookie.split("; ");
+      for (var i = 0; i < arrStr.length; i++) {
+        var temp = arrStr[i].split("=");
+        if (temp[0] == objName)
+          return unescape(temp[1]);
+      }
+    }
+    var postBody = {
+      username: name
+    };
+    $.ajax({
+      type: 'POST',
+      url: '/users/getaccountBalance',
+      data: postBody,
+      dataType: 'json',
+      success: function (data) {
+        console.log(data._id + '\t' + "余额：" + data.balance);
+        $("#balance").html(data.balance);
+        $("#rmbBalance").html(data.rmbBalance);
+      }
+    });
+
+    function chongzhi() {
+
+      var mymessage = confirm("是否确认充值(¥->O)：" + $("#newamount").val());
+      console.log("mymessage:" + mymessage)
+      if (mymessage == true) {
+        //$(pager).replaceWith('<span class="pull-right" style="color:#00bfff;">已同意</span><br><hr>');
+        var postBody = {
+          userId: name,
+          amount: $("#newamount").val()
+        };
+        console.log(name + $("#newamount").val());
+        $.ajax({
+          type: 'POST',
+          url: '/check/chongzhi/app',
+          data: postBody,
+          dataType: 'json',
+          success: function (data) {
+            alert(data.status);
+            window.location.href=window.location.href;
+
+          }
+        });
+      }
+      else if (mymessage == false) {
+        alert("充值取消!");
+      }
+      //alert(name);
+      //alert($("#newverifyCode").val());
+
+    }
+
+    function duihuan() {
+
+      var mymessage = confirm("是否确认兑换(O->¥)：" + $("#duihuanamount").val());
+      console.log("mymessage:" + mymessage)
+      if (mymessage == true) {
+        //$(pager).replaceWith('<span class="pull-right" style="color:#00bfff;">已同意</span><br><hr>');
+        var postBody = {
+          userId: name,
+          amount: $("#duihuanamount").val()
+        };
+        console.log(name + $("#duihuanamount").val());
+        $.ajax({
+          type: 'POST',
+          url: '/check/duihuan/app',
+          data: postBody,
+          dataType: 'json',
+          success: function (data) {
+            alert(data.status);
+            window.location.href=window.location.href;
+
+          }
+        });
+      }
+      else if (mymessage == false) {
+        alert("充值取消!");
+      }
+      //alert(name);
+      //alert($("#newverifyCode").val());
+
+    }
+
+    function transferMoney() {
+
+        //alert(name);
+        //alert($("#newverifyCode").val());
+        var mymessage = confirm("确认向："+$("#payee").val()+"\n转账欧冶币：" + $("#transferamount").val());
+        if (mymessage == true) {
+        var postBody = {
+          userId: name,
+          payee: $("#payee").val(),
+          amount: $("#transferamount").val()
+        };
+
+      $.ajax({
+        type: 'POST',
+        url: '/check/transfer/Money',
+        data: postBody,
+        dataType: 'json',
+        success: function (data) {
+          alert(data.status);
+          top.location.href="usercenter.html";
+
+          // $("#transferamount").val()
+        }
+      });
+        }
+        else if (mymessage == false) {
+        alert("转账取消!");
+      }
+
+    }
+
+
+
+
+    function login_out() {
+      delCookie(getCookie("name"));
+      setTimeout("window.location.href='login.html'", 1000);
+    }
+    function delCookie(name) {//为了删除指定名称的cookie，可以将其过期时间设定为一个过去的时间   
+      var date = new Date();
+      date.setTime(date.getTime() - 10000);
+      document.cookie = name + "=a; expires=" + date.toGMTString();
+    }
+  </script>
+</body>
+
+</html>
