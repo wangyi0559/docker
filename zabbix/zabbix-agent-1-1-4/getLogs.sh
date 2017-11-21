@@ -27,10 +27,9 @@ function getLogs(){
         *)   echo 'error' >/dev/null 2>&1 
         ;;
     esac
-    docker logs --tail 8192 $CONTAINER_NAME > /chain/dockerlogs$PEER_INDEX 2>&1
-    grep -E '(Starting new Broadcast handler|Closing Broadcast stream)' /chain/dockerlogs$PEER_INDEX > /chain/BroadcastTime
-    grep -E '(Adding payload locally,|\[chaincode\] Execute -> .* Exit)' /chain/dockerlogs$PEER_INDEX > /chain/TransactionTimebac
-    grep -A 1 'Adding payload locally,' /chain/TransactionTimebac > /chain/TransactionTime
+    docker logs --tail 8192 $CONTAINER_NAME > /chain/dockerlogs 2>&1
+    cat /chain/dockerlogs | grep -E '(Starting new Broadcast handler|Closing Broadcast stream)' > /chain/BroadcastTime
+    cat /chain/dockerlogs | grep -E '(Adding payload locally,|\[chaincode\] Execute -> .* Exit)' | grep -A 1 'Adding payload locally,' > /chain/TransactionTime
     A=$(cat /chain/BroadcastTime)
     B=$(cat /chain/TransactionTime)
     if [ -z "$A" -o "$A" = " " ] && [ -z "$B" -o "$B" = " " ]; then
@@ -41,5 +40,3 @@ function getLogs(){
     fi
 }
 getLogs
-
-
