@@ -5,29 +5,31 @@ if [ $STATUS == "0" ]; then
     sleep 11s
     exit 0
 fi
-if [ ! -f "/chain/PEER_INDEX" ]; then
+if [ ! -f "/chain/CONTAINER_ID" ]; then
     sleep 11s  
 　　exit 0  
 fi
-PEER_INDEX=$(cat /chain/PEER_INDEX)
+CONTAINER_ID=$(cat /chain/CONTAINER_ID)
+sed -n '$=' /var/lib/docker/containers/$CONTAINER_ID/$CONTAINER_ID-json.log > /logsheight
 function getLogs(){
-    case $PEER_INDEX in
-        1)   CONTAINER_NAME="orderer.example.com" 
-        ;;
-        2)   CONTAINER_NAME="ca_peerOrg1" 
-        ;;
-        3)   CONTAINER_NAME="peer0.org1.example.com" 
-        ;;
-        4)   CONTAINER_NAME="peer1.org1.example.com" 
-        ;;
-        5)   CONTAINER_NAME="peer2.org1.example.com" 
-        ;;
-        6)   CONTAINER_NAME="peer3.org1.example.com" 
-        ;;
-        *)   echo 'error' >/dev/null 2>&1 
-        ;;
-    esac
-    docker logs --tail 8192 $CONTAINER_NAME > /chain/dockerlogs 2>&1
+    LOGSHEIGHT=$(cat /logsheight)
+    LOGSNOW=$(cat /logsnow)
+
+    if test $[LOGSNOW] -ge $[LOGSHEIGHT]
+    then 
+    sleep 10s
+    exit 0
+    fi
+    LOGSTEMP=`expr $LOGSNOW + 5000`
+    if test $[LOGSTEMP] -lt $[LOGSHEIGHT]
+    then
+    sed -n "$LOGSNOW,$LOGSTEMP p" /var/lib/docker/containers/$CONTAINER_ID/$CONTAINER_ID-json.log | sed -e 's/^{"log":"//' | sed 's/..$//' | sed -e 's/\\u001b\[[0-9]\{0,\}m//g' | sed -e 's/\\u003e/>/g' > /chain/dockerlogs
+    LOGSNOW=`expr $LOGSTEMP + 1`
+    else
+    sed -n "$LOGSNOW,$LOGSHEIGHT p" /var/lib/docker/containers/$CONTAINER_ID/$CONTAINER_ID-json.log | sed -e 's/^{"log":"//' | sed 's/..$//' | sed -e 's/\\u001b\[[0-9]\{0,\}m//g' | sed -e 's/\\u003e/>/g' > /chain/dockerlogs
+    LOGSNOW=`expr $LOGSHEIGHT + 1`
+    fi
+    echo $LOGSNOW > /logsnow
     cat /chain/dockerlogs | grep -E '(Starting new Broadcast handler|Closing Broadcast stream)' > /chain/BroadcastTime
     cat /chain/dockerlogs | grep -E '(Adding payload locally,|\[chaincode\] Execute -> .* Exit)' | grep -A 1 'Adding payload locally,' > /chain/TransactionTime
     A=$(cat /chain/BroadcastTime)

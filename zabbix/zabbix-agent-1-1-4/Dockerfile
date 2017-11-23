@@ -93,11 +93,16 @@ RUN echo "Asia/Shanghai" > /etc/timezone && ln -sf /usr/share/zoneinfo/Asia/Shan
 RUN echo 0 > /now && \
     echo -2 > /height && \
     echo 0 > /status && \
+    echo 1 > /logsnow && \
+    echo 1 > /logsheight && \
+    echo 1 > /alllogsnow && \
+    echo 1 > /alllogsheight && \
     echo "UserParameter=chain.height,sudo /bin/bash /getHeight.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.TaskStatus,sudo /bin/bash /getStatus.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.block,sudo /bin/bash /getBlock.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.net,sudo /bin/bash /getNet.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.logs,sudo /bin/bash /getLogs.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
+    echo "UserParameter=chain.Alllogs,sudo /bin/bash /getAllLogs.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf && \
     echo "UserParameter=chain.disk,sudo /bin/bash /getDisk.sh" >> /etc/zabbix/zabbix_agentd.d/zabbix_fabric.conf
 
 RUN curl -sSL https://get.daocloud.io/docker | sh
@@ -116,6 +121,7 @@ ADD getBlock.sh /
 ADD getNet.sh /
 ADD getLogs.sh /
 ADD getDisk.sh /
+ADD getAllLogs.sh /
 
 ENTRYPOINT ["/bin/bash"]
 
