@@ -1,5 +1,5 @@
 #!/bin/bash
-AGENT_IP=`ifconfig  | grep 'inet addr:' | grep -v '127.0.0.1' | grep -v '0.0.0.0' | grep -v '172.' | cut -d: -f2 | awk '{ print $1}'`
+AGENT_IP=`ifconfig  | grep 'inet addr:' | grep -v '127.0.0.1' | grep -v '0.0.0.0' | grep -v '172.17.' | cut -d: -f2 | awk '{ print $1}'`
 function getNet(){
     cp /chain/netdat /chain/netdat1
     >/chain/netdat
