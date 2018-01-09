@@ -10,10 +10,10 @@
    "chaincodeVersion":"v0",
 
    "instantiateFunctionName":"init",
-   "instantiateArgs":["a","100","b","200"], 
+   "instantiateArgs":["a","100"], 
 
    "invokeFunctionName":"move", 
-   "invokeArgs":["a","b","10"],
+   "invokeArgs":["a","10"],
 
    "GOPATH":"../artifacts", 
    "keyValueStore":"/tmp/fabric-client-kvs", 
