@@ -1,0 +1,83 @@
+{
+   "host":"localhost", //对外提供服务地址，不需要改
+   "port":"8080", //对外提供服务端口，不需要改
+
+   "channelName":"mychannel", //通道名，不需要改
+   "channelConfigPath":"../artifacts/channel/mychannel.tx", //通道相关配置，需要生成，路径可以不用改
+
+   "chaincodeName":"mycc", //智能合约名称，不需要改
+   "chaincodePath":"github.com/example_cc", //智能合约地址（本地../artifacts/src 目录下），不需要更改
+   "chaincodeVersion":"v0", //智能合约版本，不需要改
+
+   "instantiateFunctionName":"init", //智能合约实例化函数，不需要更改
+   "instantiateArgs":["a","100","b","200"], //智能合约实例化参数，不需要更改
+
+   "invokeFunctionName":"move", //智能合约交易函数，不需要更改
+   "invokeArgs":["a","b","10"],  //智能合约交易参数，不需要更改
+
+   "GOPATH":"../artifacts", //设置GOPATH，，不需要更改
+   "keyValueStore":"/tmp/fabric-client-kvs", //不需要更改
+   "eventWaitTime":"30000", //不需要更改
+   "users":[ //默认用户，不需要改
+      {
+         "username":"admin",
+         "secret":"adminpw"
+      }
+   ],
+
+   "orderer":"grpcs://localhost:7050", //order节点地址，（与下方network-config相匹配）
+   "username":"Test1", //同一组织，登录名。Test1,Test2...
+   "orgname":"org1", //同一组织，组织名(与下方network-config相匹配)。org1,org2...
+   "peers":["localhost:7051","localhost:7056"], //同一组织，所有节点ip（与下方network-config相匹配）
+   "peer":"peer1", //该组织下，本节点id，（与下方network-config相匹配），peer1,peer2...
+
+   "network-config": { //所有节点信息，都需要更改，主要是IP地址和name以及路径等需要根据要求修改
+    "orderer": {
+        "url": "grpcs://localhost:7050",
+        "server-hostname": "orderer.example.com",
+        "tls_cacerts": "../artifacts/channel/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt"
+    },
+    "org1": {
+        "name": "peerOrg1",
+        "mspid": "Org1MSP",
+        "ca": "https://localhost:7054",
+        "peer1": {
+            "requests": "grpcs://localhost:7051",
+            "events": "grpcs://localhost:7053",
+            "server-hostname": "peer0.org1.example.com",
+            "tls_cacerts": "../artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"
+        },
+        "peer2": {
+            "requests": "grpcs://localhost:7056",
+            "events": "grpcs://localhost:7058",
+            "server-hostname": "peer1.org1.example.com",
+            "tls_cacerts": "../artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt"
+        },
+        "admin": {
+            "key": "../artifacts/channel/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore",
+            "cert": "../artifacts/channel/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts"
+        }
+    },
+    "org2": {
+        "name": "peerOrg2",
+        "mspid": "Org2MSP",
+        "ca": "https://localhost:8054",
+        "peer1": {
+            "requests": "grpcs://localhost:8051",
+            "events": "grpcs://localhost:8053",
+            "server-hostname": "peer0.org2.example.com",
+            "tls_cacerts": "../artifacts/channel/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt"
+        },
+        "peer2": {
+            "requests": "grpcs://localhost:8056",
+            "events": "grpcs://localhost:8058",
+            "server-hostname": "peer1.org2.example.com",
+            "tls_cacerts": "../artifacts/channel/crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt"
+        },
+        "admin": {
+            "key": "../artifacts/channel/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore",
+            "cert": "../artifacts/channel/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts"
+        }
+    }
+}
+}

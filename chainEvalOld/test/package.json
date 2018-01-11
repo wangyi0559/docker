@@ -1,0 +1,24 @@
+{
+  "name": "blockchain-evaluate",
+  "version": "1.0.0",
+  "description": "A blockchain-evaluate node program to demonstrate using node.js SDK APIs",
+  "main": "app/app.js",
+  "keywords": [
+    "fabric-client blockchain-evaluate app",
+    "v1.0 fabric nodesdk app"
+  ],
+  "engines": {
+    "node": ">=6.9.5",
+    "npm": ">=3.10.10"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "fabric-ca-client": "1.0.0",
+    "fabric-client": "1.0.0",
+    "fs-extra": "^2.0.0",
+    "log4js": "^0.6.38"
+  }
+}
