@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -f "/chain/scripts/getBlock.sh" ]; then
-sleep 10s
+echo ""
 exit 0
 fi
 
@@ -9,7 +9,7 @@ INIT=$(cat /getblockinit)
 if [ $INIT == "0" ]; then
     nohup /bin/bash /chain/scripts/getBlock.sh > /dev/null 2>&1 &
     echo 1 > /getblockinit
-    sleep 10s
+    echo ""
     exit 0
 fi
 
@@ -23,5 +23,5 @@ then
     cat /chain/finalblock$BLOCKNOW
     rm /chain/finalblock$BLOCKNOW
 else
-    sleep 10s
+    echo ""
 fi
