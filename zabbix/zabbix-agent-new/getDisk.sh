@@ -13,10 +13,10 @@ if [ $INIT == "0" ]; then
     exit 0
 fi
 
-A=$(cat /chain/finaldisk)
+A=$(cat /chain/data/finaldisk)
 if [ -z "$A" -o "$A" = " " ]; then
     echo ""
     exit 0
 fi
-cat /chain/finaldisk
-> /chain/finaldisk
+cat /chain/data/finaldisk
+> /chain/data/finaldisk

@@ -13,10 +13,10 @@ if [ $INIT == "0" ]; then
     exit 0
 fi
 
-A=$(cat /chain/finalnet)
+A=$(cat /chain/data/finalnet)
 if [ -z "$A" -o "$A" = " " ]; then
     echo ""
     exit 0
 fi
-cat /chain/finalnet
-> /chain/finalnet
+cat /chain/data/finalnet
+> /chain/data/finalnet

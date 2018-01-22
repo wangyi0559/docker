@@ -20,8 +20,7 @@ if test $[BLOCKNOW] -lt $[HEIGHT]
 then
     NEW=`expr $BLOCKNOW + 1`
     echo $NEW > /getblocknow
-    cat /chain/finalblock$BLOCKNOW
-    rm /chain/finalblock$BLOCKNOW
+    cat /chain/data/finalblock$BLOCKNOW
 else
     echo ""
 fi
