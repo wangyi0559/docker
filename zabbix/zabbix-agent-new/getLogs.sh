@@ -13,11 +13,11 @@ if [ $INIT == "0" ]; then
     echo ""
     exit 0
 fi
-
-A=$(cat /chain/data/finallogs)
-if [ -z "$A" -o "$A" = " " ]; then
-    echo ""
-    exit 0
-fi
-cat /chain/data/finallogs
-> /chain/data/finallogs
+echo 1
+# A=$(cat /chain/data/finallogs)
+# if [ -z "$A" -o "$A" = " " ]; then
+#     echo ""
+#     exit 0
+# fi
+# cat /chain/data/finallogs
+# > /chain/data/finallogs
