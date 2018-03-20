@@ -149,6 +149,7 @@ do
                 \"key_\": \"net.if.in[$eth]\",
                 \"hostid\": \"$HOST_ID\",
                 \"type\": 0,
+                \"delta\": 1,
                 \"value_type\": 3,
                 \"interfaceid\": \"$INTERFACE_ID\",
                 \"delay\": \"5s\"
@@ -168,6 +169,7 @@ do
                 \"key_\": \"net.if.out[$eth]\",
                 \"hostid\": \"$HOST_ID\",
                 \"type\": 0,
+                \"delta\": 1,
                 \"value_type\": 3,
                 \"interfaceid\": \"$INTERFACE_ID\",
                 \"delay\": \"5s\"
